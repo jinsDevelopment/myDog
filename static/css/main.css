@@ -1,0 +1,7 @@
+.search__bar {
+  display: flex;
+  gap: 10px;
+}
+.btn-search {
+  white-space: nowrap;
+}

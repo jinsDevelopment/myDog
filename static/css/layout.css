@@ -1,10 +1,19 @@
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
 /************ 
  * header
  *************/
-
+.header-logo {
+  font-size: 30px;
+  font-weight: 700;
+}
 /************ 
  * footer
  *************/
 .footer__wrap {
   background-color: #ccc;
+}
+.footerFont {
+  margin-bottom: 0 !important;
 }

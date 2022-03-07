@@ -21,47 +21,33 @@
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Google web font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="../static/css/layout.css" />
+    <link rel="stylesheet" href="../static/css/main.css">
     <!-- JS -->
     <script defer src="../static/js/main.js"></script>
     <title>IntroDog</title>
   </head>
   <body>
-    <div id="header">
-      <header id="header_inner">
-        <h1 id="logo">
-          <a
-            href="{% if nickname %}/main{% else %}/{% endif %}"
-            class="align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
-          >
-            <span class="header__logo">IntroDog</span>
-          </a>
-        </h1>
-
-        <div id="logDiv">
-          <ul id="memberinfo">
-            <ul id="memberBox"></ul>
-          </ul>
-          <div id="logBtn">
-            <button
-              id="loginBt"
-              type="button"
-              class="btn btn-outline-secondary me-2"
-              onclick="location.href='login'"
-            >
-              Login
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              onclick="location.href='signup'"
-            >
-              Sign-up
-            </button>
-          </div>
+    <div class="container">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none header-logo">
+          IntroDog
+        </a>
+  
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 link-dark">COMMUNITY</a></li>
+        </ul>
+  
+        <div class="col-md-3 text-end">
+          <button type="button" class="btn btn-outline-secondary me-2">Login</button>
+          <button type="button" class="btn btn-secondary">Sign-up</button>
         </div>
       </header>
+    </div>
     </div>
     <div class="contents">{% block content %}{% endblock %}</div>
     <!-- footer -->

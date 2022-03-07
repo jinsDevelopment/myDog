@@ -1,1 +1,34 @@
-{% extends 'layout.html' %} {% block content %} TEST {% endblock %}
+{% extends 'layout.html' %} {% block content %}
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img
+        src="../static/img/banner-dog.png"
+        class="d-block mx-lg-auto img-fluid"
+        alt="Bootstrap Themes"
+        width="700"
+        height="500"
+        loading="lazy"
+      />
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold lh-1 mb-3">IntroDog?</h1>
+      <p class="lead">
+        "IntroDog" 은 애견인들의 의견을 교류할 수 있는 사이트입니다.<br />
+        반려견을 키우면서 생기는 질문, 일상 등 사소한 것까지 다른 이들과 함께
+        교류할 수 있습니다!
+      </p>
+      <form class="col-8 col-lg-auto mb-3 mb-lg-0 search__bar">
+        <input
+          id="input_kw"
+          type="text"
+          class="form-control"
+          placeholder="궁금한 반려견의 종류를 검색해 주세요!"
+          aria-label="Search"
+        />
+        <button type="button" class="btn btn-secondary btn-search">검색</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
