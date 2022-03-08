@@ -27,12 +27,20 @@
 .thumbnail:hover {
   transform: scale(1.05);
 }
+.thunmbnail__title {
+  text-align: center;
+  font-size: 18px;
+}
+.card-body {
+  padding: 0.8rem 0.8rem;
+}
 /************
  * Modal
  *************/
 .modal-backdrop {
   z-index: 0;
 }
+
 /**************************************
  * Media Query
  ***************************************/
