@@ -1,6 +1,9 @@
 body {
   padding-right: 0 !important;
 }
+.container {
+  padding: 0;
+}
 /**********************************
  * banner
  ************************************/
@@ -28,7 +31,7 @@ body {
   display: inline-block;
   margin: 0;
   padding: 10px;
-  column-width: 200px;
+  column-width: 180px;
   column-gap: 15px;
 }
 .thumbnail {
