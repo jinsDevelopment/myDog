@@ -171,14 +171,12 @@ dbT = clientT.dbIntroDog
 # 반려견 종류 정보 가져오기
 @app.route("/getDogList", methods=["GET"])
 def getDogList():
-    li = ""
-    print(request.args.get('id'))
-    if id is None:
-        li = list(dbT.dog.find({}, {'_id': False}))
-    else:
-        li = list(dbT.dog.find({'id': request.args.get('id')}, {'_id': False}))
-    print(li)
-    return jsonify({'dogList': li})
+    dog_list = list(dbT.dog.find({ 'id': { '$ne': '00'}}, {'_id': False}))
+    dogimg_list = list(dbT.dogimg.find({},{'_id': False}))
+    dogthumb_list = dbT.dog.find_one({'id': '00'},{'_id': False})
+    print(dogthumb_list)
+    
+    return jsonify({'dogList': dog_list, 'dogimgList': dogimg_list})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
