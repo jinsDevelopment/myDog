@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Webpage Title -->
+        <title>Hello, world!</title>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Bulma CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+        />
+        <script
+            defer
+            src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+        ></script>
+        <!-- boxicon cdn -->
+        <link
+            href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"
+            rel="stylesheet"
+        />
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <!-- css -->
+        <!-- css -->
+        <link rel=stylesheet type=text/css href="{{ url_for('static',
+        filename='css/join.css') }}">
+        <script>
+            // 간단한 회원가입 함수입니다.
+            // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
+            function register() {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/join",
+                    data: {
+                        id: $("#userid").val(),
+                        pw: $("#userpw").val(),
+                        nickname: $("#usernick").val(),
+                        dogCode: $("#dogtype").val(),
+                    },
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            alert("회원가입이 완료되었습니다.");
+                            window.location.href = "/login";
+                        } else {
+                            alert(response["msg"]);
+                        }
+                    },
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <section class="hero is-warning">
+            <div class="hero-body">
+                <p class="title">IntroDog</p>
+                <p class="subtitle">서브헤딩</p>
+            </div>
+        </section>
+        <div class="section">
+            <div class="container">
+                <h1 class="title">Sign-up to IntroDog</h1>
+                <div class="field is-horizontal">
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right">
+                                <input
+                                    type="text"
+                                    class="input"
+                                    id="userid"
+                                    aria-describedby="emailHelp"
+                                    placeholder="Email"
+                                />
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right">
+                                <input
+                                    type="text"
+                                    class="input"
+                                    id="usernick"
+                                    placeholder="닉네임"
+                                />
+                                <span class="icon is-small is-left">
+                                    <i class="bx bx-user"></i>
+                                </span>
+                            </div>
+                            <p class="register-desc">
+                                닉네임은 2-10자의 영문과 숫자만 입력 가능합니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right">
+                                <input
+                                    type="password"
+                                    class="input"
+                                    id="userpw"
+                                    placeholder="Password"
+                                />
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>
+                            <p class="register-desc">
+                                영문과 숫자 조합의 8-20자의 비밀번호를
+                                설정해주세요.특수문자(!@#$%^&*)도 사용
+                                가능합니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right">
+                                <input
+                                    type="password"
+                                    class="input"
+                                    id="pwconfirm"
+                                    placeholder="Password Confirm"
+                                />
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>
+                            <p class="register-desc">
+                                비밀번호를 다시 한 번 입력해주세요.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <div class="select">
+                            <select id="dogtype" class="dog-select">
+                                <option selected>내 강아지</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                                <option>종류</option>
+                            </select>
+                        </div>
+                        <span class="icon is-left"> 🐶 </span>
+                        <p class="register-desc">
+                            강아지 종류를 선택해 주세요.
+                        </p>
+                    </div>
+                </div>
+
+                <button class="button is-primary" onclick="register()">
+                    회원가입
+                </button>
+            </div>
+        </div>
+    </body>
+</html>

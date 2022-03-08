@@ -24,24 +24,26 @@
             window.location.href = '/login'
         }
 
+        function home() {
+            window.location.href = '/'
+        }
+
         function boardList() {
             window.location.href = '/boardList'
         }
 
-        function write_page(){
-            window.location.href = '/write'
-        }
 
     </script>
 
 </head>
 <body>
 <p>
-<h1 class="title">인덱스 페이지입니다</h1>
+<h1 class="title">게시글 페이지입니다</h1>
 </p>
 <h5 class="subtitle">나의 닉네임은: {{ nickname }}</h5>
 <button class="button is-danger" onclick="logout()">로그아웃하기</button>
+<button class="button is-danger" onclick="home()">인덱스로 이동</button>
 <button class="button is-danger" onclick="boardList()">보드로 이동</button>
-<button class="button is-danger" onclick = "write_page()">글쓰기 페이지로 이동</button>
+
 </body>
 </html>
