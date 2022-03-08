@@ -13,6 +13,7 @@
  *************/
 .footer__wrap {
   background-color: #ccc;
+  margin-top: 30px;
 }
 .footerFont {
   margin-bottom: 0 !important;
