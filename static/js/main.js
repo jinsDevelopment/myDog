@@ -34,12 +34,13 @@ window.addEventListener('load', () => {
                         data-bs-img="${img}"
                         data-bs-desc="${desc}"
                       >
-                        <div class="col">
+                        <div class="col my-4">
                           <div class="card shadow-sm">
                             <img
                               src="${img}"
                               width="100%"
                               height="100%"
+                              class="card-img-top"
                               title="${name}"
                               alt="${name}"
                             />
@@ -62,21 +63,23 @@ window.addEventListener('load', () => {
  * Modal
  ***********************************/
 // 받아온 정보를 모달창에 넣어줍니다.
-const exampleModal = document.getElementById('exampleModal');
-exampleModal.addEventListener('show.bs.modal', function (event) {
-  // 모달창을 열게한 버튼을 정의해줍니다.
-  const button = event.relatedTarget;
-  // data-*에서 속성을 추출해옵니다.
-  const recipient = button.getAttribute('data-bs-whatever');
-  const img = button.getAttribute('data-bs-img');
-  const desc = button.getAttribute('data-bs-desc');
+window.addEventListener('load', () => {
+  const exampleModal = document.getElementById('exampleModal');
+  exampleModal.addEventListener('show.bs.modal', function (event) {
+    // 모달창을 열게한 버튼을 정의해줍니다.
+    const button = event.relatedTarget;
+    // data-*에서 속성을 추출해옵니다.
+    const recipient = button.getAttribute('data-bs-whatever');
+    const img = button.getAttribute('data-bs-img');
+    const desc = button.getAttribute('data-bs-desc');
 
-  // 모달창의 내용을 업데이트 해줍니다.
-  const modalTitle = exampleModal.querySelector('.modal-title');
-  const modalImg = document.getElementById('modal-img');
-  const modalBody = document.querySelector('.modal-body');
+    // 모달창의 내용을 업데이트 해줍니다.
+    const modalTitle = exampleModal.querySelector('.modal-title');
+    const modalImg = document.getElementById('modal-img');
+    const modalBody = document.querySelector('.modal-desc');
 
-  modalTitle.textContent = recipient;
-  modalImg.src = img;
-  modalBody.textContent = desc;
+    modalTitle.textContent = recipient;
+    modalImg.src = img;
+    modalBody.textContent = desc;
+  });
 });

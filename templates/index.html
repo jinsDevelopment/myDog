@@ -55,8 +55,12 @@
           aria-label="Close"
         ></button>
       </div>
-      <img id="modal-img" alt="" />
-      <div class="modal-body">...</div>
+
+      <div class="modal-body">
+        <img src="" id="modal-img" alt="" />
+        <div class="modal-desc"></div>
+        <!-- 강아지의 설명이 들어갑니다 -->
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
@@ -73,10 +77,7 @@
 <main class="bg-light">
   <div class="album py-5">
     <div class="container clearFix">
-      <div
-        id="thumbnail-box"
-        class="row row-cols-3 row-cols-sm-3 row-cols-md-5 row-cols-lg-6 g-3"
-      >
+      <div id="thumbnail-box" class="columns-masonry">
         <!-- temp_html이 들어가는 장소 -->
       </div>
     </div>

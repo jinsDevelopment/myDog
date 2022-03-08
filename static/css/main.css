@@ -21,6 +21,14 @@
 /**********************************
  * Thumbnail
  ************************************/
+.columns-masonry {
+  display: inline-block;
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 10px;
+  column-width: 200px;
+  column-gap: 15px;
+}
 .thumbnail {
   transition: all 0.2s ease-in-out;
 }
@@ -39,6 +47,19 @@
  *************/
 .modal-backdrop {
   z-index: 0;
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#modal-img {
+  margin: 0 auto;
+  padding: 0 20px 20px;
+  object-fit: contain;
+}
+.modal-desc {
+  text-indent: 1em;
 }
 
 /**************************************
