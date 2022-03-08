@@ -11,7 +11,6 @@ window.addEventListener('load', () => {
     success: (response) => {
       let rows = response['dogList'];
       let rowsImg = response['dogimgList'];
-      console.log(rows, rowsImg);
 
       for (let i = 0; i < rows.length; i++) {
         // dogList의 code(id값)을 정의합니다.

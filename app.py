@@ -173,8 +173,6 @@ dbT = clientT.dbIntroDog
 def getDogList():
     dog_list = list(dbT.dog.find({ 'id': { '$ne': '00'}}, {'_id': False}))
     dogimg_list = list(dbT.dogimg.find({},{'_id': False}))
-    dogthumb_list = dbT.dog.find_one({'id': '00'},{'_id': False})
-    print(dogthumb_list)
     
     return jsonify({'dogList': dog_list, 'dogimgList': dogimg_list})
 
