@@ -18,13 +18,24 @@
 .btn-search {
   white-space: nowrap;
 }
+/**********************************
+ * Thumbnail
+ ************************************/
+.thumbnail {
+  transition: all 0.2s ease-in-out;
+}
+.thumbnail:hover {
+  transform: scale(1.05);
+}
 /************
  * Modal
  *************/
 .modal-backdrop {
   z-index: 0;
 }
-
+/**************************************
+ * Media Query
+ ***************************************/
 @media (min-width: 992px) {
   .search__bar--wrap {
     display: block;

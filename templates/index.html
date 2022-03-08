@@ -36,16 +36,6 @@
   </div>
 </div>
 
-<!-- Button trigger modal -->
-<button
-  type="button"
-  class="btn btn-primary"
-  data-bs-toggle="modal"
-  data-bs-target="#exampleModal"
->
-  누르면 모달이 나와요
-</button>
-
 <!-- Modal -->
 <div
   class="modal fade"
@@ -78,8 +68,48 @@
 
 <!-- // Modal -->
 
+<!-- Thumbnail -->
+
+<main class="bg-light">
+  <div class="album py-5">
+    <div class="container clearFix">
+      <div
+        id="thumbnail-box"
+        class="row row-cols-3 row-cols-sm-3 row-cols-md-5 row-cols-lg-6 g-3"
+      >
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="thumbnail"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <div class="col">
+            <div class="card shadow-sm">
+              <img
+              src="https://ww.namu.la/s/db6df9d8f32a265abab22f79f0e954cc056451a76751d1211516f5c02c9af0a7ff0602e3f327ab1f916c2ad4c8cfc00465003ae8251628bec3749ad7b270491dfcd403ee51873e7d79d4db384e9c2466ec97fb17fc47146fcc76da4cbadb7443""
+              width="100%" height="100%" title="골든 리트리버" alt="골든
+              리트리버" />
+              <div class="card-body">
+                <p class="thunmbnail__title card-text">골든 리트리버</p>
+              </div>
+            </div>
+          </div>
+        </button>
+        <button class="thumbnail">test</button>
+        <button class="thumbnail">test</button>
+        <button class="thumbnail">test</button>
+        <button class="thumbnail">test</button>
+        <button class="thumbnail">test</button>
+        <button class="thumbnail">test</button>
+        <button class="thumbnail">test</button>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- // Thumbnail -->
+
 <!-- 재혁님 작업 -->
-<h1 class="title">인덱스 페이지입니다</h1>
 
 <h5 class="subtitle">나의 닉네임은: {{ nickname }}</h5>
 <button class="button is-danger" onclick="logout()">로그아웃하기</button>

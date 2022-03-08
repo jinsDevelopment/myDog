@@ -1,5 +1,10 @@
 * {
   font-family: 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
+}
+button {
+  all: unset;
+  padding: 0;
 }
 /************ 
  * header
