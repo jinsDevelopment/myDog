@@ -32,8 +32,6 @@
 
         <link rel=stylesheet type=text/css href="{{ url_for('static',
         filename='css/join.css') }}">
-        <!-- script -->
-        <script src="{{ url_for('static', filename='js/join.js') }}"></script>
     </head>
     <body>
         <section class="hero is-warning">
@@ -148,52 +146,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="field">
-                    <div class="control has-icons-left">
-                        <div class="select">
-                            <select id="dogtype" class="dog-select">
-                                <option selected>내 강아지</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                            </select>
-                        </div>
-                        <span class="icon is-left"> 🐶 </span>
-                        <p class="register-desc">
-                            강아지 종류를 선택해 주세요.
-                        </p>
+                <div class="multi-selector">
+                    <div class="select-field">
+                        <span class="down-arrow1">🐶</span>
+                        <p>당신의 강아지는 무엇입니까?</p>
+                        <span class="down-arrow">&blacktriangledown;</span>
                     </div>
+                    <!---------List of checkboxes and options----------->
+                    <div id="checkboxgroup" class="list"></div>
                 </div>
+                <p class="show-list"></p>
 
                 <button class="button is-primary" onclick="join()">
                     회원가입
                 </button>
             </div>
         </div>
+
+        <!-- script -->
+        <script src="{{ url_for('static', filename='js/join.js') }}"></script>
     </body>
 </html>

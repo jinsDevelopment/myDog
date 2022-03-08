@@ -4,8 +4,22 @@ app = Flask(__name__)
 
 from pymongo import MongoClient
 
-client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
-db = client.dblewigolski
+# client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
+# db = client.dblewigolski
+
+from pymongo import MongoClient
+import certifi
+mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
+client = MongoClient(mongo_connect,tlsCAFile=certifi.where())
+db = client.dbIntroDog
+
+
+user = list(db.user.find({}, {'_id': False}))
+print(user)
+
+
+# resp = db.dog.distinct("id")
+# print(resp)
 
 SECRET_KEY = 'SPARTA'
 
@@ -66,6 +80,12 @@ def login():
 def join():
     return render_template('join.html')
 
+####### 데이터베이스에서 dog id랑 name 값 받아서 체크박스에 append시키기 ########
+@app.route("/dog/list", methods=["GET"])
+def bucket_get():
+    dog = list(db.dog.find({}, {'_id': False}))
+    return jsonify({'msg': dog})
+
 
 #################################
 ##  로그인을 위한 API            ##
@@ -76,11 +96,11 @@ def join():
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
 @app.route('/api/join', methods=['POST'])
 def api_join():
-    email_receive = request.form['id']
+    email_receive = request.form['email']
     id_receive = request.form['id']
     pw_receive = request.form['pw']
     nickname_receive = request.form['nickname']
-    dogCode_receive = request.form['dogCode']
+    dogCode_receive = request.form['dogCode'].split(",")
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
@@ -89,7 +109,7 @@ def api_join():
         "id": id_receive,
         "password": pw_hash,  
         "nickname": nickname_receive,
-        "dogCode": dogCode_receive,
+        "dogId": dogCode_receive,
     }
 
     db.user.insert_one(doc)
@@ -164,6 +184,7 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
+
 
 
 if __name__ == '__main__':
