@@ -1,3 +1,5 @@
+'use strict';
+// 재혁님 작업
 function logout() {
   $.removeCookie('mytoken');
   alert('로그아웃!');
@@ -18,3 +20,8 @@ function goJoin() {
 function write_page() {
   window.location.href = '/write';
 }
+//
+
+/***********************************
+ * Modal
+ ***********************************/
