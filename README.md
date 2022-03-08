@@ -10,3 +10,9 @@
 | 회원가입             | POST   | /api/join      | {'id': id, 'pw': password} | {'msg': '회원가입이 완료되었습니다.'}                                                                                               |
 | 로그인               | POST   | /api/login     | {'id': id, 'pw': password} | 로그인 성공 - {'result': 'success', 'token': token} 로그인 실패 - {'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'} |
 | 게시글 조회          | GET    | /boardList     |                            | Token 인증시 - render_template('board_list.html'), Token 미인증시 - {msg="로그인 정보가 존재하지 않습니다."}                        |
+
+-   Item 1
+-   Item 2
+-   Item 3
+    -   Sub Item 1
+    -   Sub Item 2
