@@ -1,3 +1,6 @@
+body {
+  padding-right: 0 !important;
+}
 /**********************************
  * banner
  ************************************/
@@ -24,7 +27,6 @@
 .columns-masonry {
   display: inline-block;
   margin: 0;
-  margin-bottom: 15px;
   padding: 10px;
   column-width: 200px;
   column-gap: 15px;

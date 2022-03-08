@@ -34,7 +34,7 @@ window.addEventListener('load', () => {
                         data-bs-img="${img}"
                         data-bs-desc="${desc}"
                       >
-                        <div class="col my-4">
+                        <div class="col my-2">
                           <div class="card shadow-sm">
                             <img
                               src="${img}"
