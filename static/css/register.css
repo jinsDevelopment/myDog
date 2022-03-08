@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&family=The+Nautigal&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.hero-body {
+    text-align: center;
+}
+
+.hero-body .title {
+    margin-bottom: 40px;
+}
+
+.container {
+    border: solid 2px rgb(236, 231, 231);
+    width: 500px;
+    padding: 40px;
+    background: rgb(236, 231, 231);
+    border-radius: 10px;
+}
+
+.container h1 {
+    text-align: center;
+}
+
+.container .title {
+    margin-bottom: 40px;
+}
+
+.input {
+    margin-bottom: 10px;
+}
+
+.register-desc {
+    font-size: 12px;
+}
+
+.button {
+    width: 100%;
+}
+
+.dog-select {
+    width: 500px;
+}
+
+button {
+    margin-top: 20px;
+}
