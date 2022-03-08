@@ -1,1 +1,37 @@
-{% extends 'layout.html' %} {% block content %} TEST {% endblock %}
+{% extends 'layout.html' %} {% block content %}
+    <script>
+
+        $(document).ready(function () {
+            show_dogList();
+        });
+
+        function show_dogList() {
+
+            let keyWord = $('#keyWord').val()
+
+            $.ajax({
+                type: 'GET',
+                url: "/getDogList?id=" + keyWord,
+                dataType: 'json',
+                data: {},
+                success: function (res) {
+                    console.log(res)
+
+                }
+            });
+        }
+
+    </script>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">검색어</span>
+        </div>
+        <input type="text" class="form-control" id="keyWord" placeholder="강아지 이름" aria-label="Username"
+               aria-describedby="basic-addon1">
+        <button class="btn btn-primary" onclick="show_dogList()">검색</button>
+        <button class="btn btn-secondary" style="margin-left: 5px" onclick="window.location.href ='/board/write'">글쓰기</button>
+        <button class="btn btn-secondary" style="margin-left: 5px" onclick="window.location.href ='/board/select'">게시글 목록</button>
+    </div>
+
+{% endblock %}
