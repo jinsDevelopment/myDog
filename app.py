@@ -63,7 +63,7 @@ def login():
 
 
 @app.route('/join')
-def register():
+def join():
     return render_template('join.html')
 
 
@@ -75,7 +75,8 @@ def register():
 # id, pw, nickname을 받아서, mongoDB에 저장합니다.
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
 @app.route('/api/join', methods=['POST'])
-def api_register():
+def api_join():
+    email_receive = request.form['id']
     id_receive = request.form['id']
     pw_receive = request.form['pw']
     nickname_receive = request.form['nickname']
@@ -83,9 +84,26 @@ def api_register():
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user.insert_one({'id': id_receive, 'password': pw_hash, 'nickname': nickname_receive, 'dogCode':dogCode_receive})
+    doc = {
+        "email": email_receive, 
+        "id": id_receive,
+        "password": pw_hash,  
+        "nickname": nickname_receive,
+        "dogCode": dogCode_receive,
+    }
+
+    db.user.insert_one(doc)
 
     return jsonify({'result': 'success'})
+
+
+@app.route('/api/check_dup', methods=['POST'])
+def check_dup():
+    id_receive = request.form["id"]
+
+    exists = bool(db.user.find_one({"id": id_receive}))
+
+    return jsonify({'exists': exists})
 
 
 # [로그인 API]

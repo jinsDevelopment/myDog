@@ -29,33 +29,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <!-- css -->
-        <!-- css -->
+
         <link rel=stylesheet type=text/css href="{{ url_for('static',
         filename='css/join.css') }}">
-        <script>
-            // 간단한 회원가입 함수입니다.
-            // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
-            function register() {
-                $.ajax({
-                    type: "POST",
-                    url: "/api/join",
-                    data: {
-                        id: $("#userid").val(),
-                        pw: $("#userpw").val(),
-                        nickname: $("#usernick").val(),
-                        dogCode: $("#dogtype").val(),
-                    },
-                    success: function (response) {
-                        if (response["result"] == "success") {
-                            alert("회원가입이 완료되었습니다.");
-                            window.location.href = "/login";
-                        } else {
-                            alert(response["msg"]);
-                        }
-                    },
-                });
-            }
-        </script>
+        <!-- script -->
+        <script src="{{ url_for('static', filename='js/join.js') }}"></script>
     </head>
     <body>
         <section class="hero is-warning">
@@ -67,23 +45,45 @@
         <div class="section">
             <div class="container">
                 <h1 class="title">Sign-up to IntroDog</h1>
-                <div class="field is-horizontal">
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control has-icons-left has-icons-right">
-                                <input
-                                    type="text"
-                                    class="input"
-                                    id="userid"
-                                    aria-describedby="emailHelp"
-                                    placeholder="Email"
-                                />
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-envelope"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+
+                <div class="test field is-grouped">
+                    <p
+                        class="control is-expanded has-icons-left has-icons-right"
+                    >
+                        <input
+                            class="input"
+                            type="text"
+                            id="useremail"
+                            aria-describedby="emailHelp"
+                            placeholder="Email"
+                        />
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="test field is-grouped">
+                    <p
+                        class="control is-expanded has-icons-left has-icons-right"
+                    >
+                        <input
+                            class="input"
+                            type="text"
+                            id="userid"
+                            aria-describedby="emailHelp"
+                            placeholder="ID"
+                        />
+                        <span class="icon is-small is-left">
+                            <i id="id_confirm" class="bx bx-user"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </p>
+                    <button onclick="checkdup()" id="check-dup">
+                        중복확인
+                    </button>
                 </div>
 
                 <div class="field is-horizontal">
@@ -190,7 +190,7 @@
                     </div>
                 </div>
 
-                <button class="button is-primary" onclick="register()">
+                <button class="button is-primary" onclick="join()">
                     회원가입
                 </button>
             </div>

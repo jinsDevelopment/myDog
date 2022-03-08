@@ -27,6 +27,22 @@
     text-align: center;
 }
 
+#userid {
+    height: 42px;
+}
+
+#check-dup {
+    margin-top: 0px;
+    height: 42px;
+    width: 100px;
+    margin-left: -10px;
+}
+
+.fa-check {
+    display: none;
+    color: green;
+}
+
 .container .title {
     margin-bottom: 40px;
 }
