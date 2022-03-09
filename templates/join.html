@@ -44,21 +44,29 @@
             <div class="container">
                 <h1 class="title">Sign-up to IntroDog</h1>
 
-                <div class="test field is-grouped">
-                    <p
-                        class="control is-expanded has-icons-left has-icons-right"
-                    >
-                        <input
-                            class="input"
-                            type="text"
-                            id="useremail"
-                            aria-describedby="emailHelp"
-                            placeholder="Email"
-                        />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                    </p>
+                <div class="field is-horizontal">
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control has-icons-left has-icons-right">
+                                <input
+                                    type="text"
+                                    class="input"
+                                    id="useremail"
+                                    placeholder="Email"
+                                    onkeyup="check_email()"
+                                />
+                                <span class="icon is-small is-left">
+                                    <i class="bx bx-user"></i>
+                                </span>
+                                <span class="icon is-small is-right">
+                                    <i class="fas fa-check email-confirm"></i>
+                                </span>
+                            </div>
+                            <p class="register-desc email-text-msg">
+                                이메일 형식이 아닙니다
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="test field is-grouped">
@@ -69,20 +77,25 @@
                             class="input"
                             type="text"
                             id="userid"
-                            aria-describedby="emailHelp"
                             placeholder="ID"
+                            disabled
+                            onkeyup="check_id()"
                         />
                         <span class="icon is-small is-left">
                             <i id="id_confirm" class="bx bx-user"></i>
                         </span>
                         <span class="icon is-small is-right">
-                            <i class="fas fa-check"></i>
+                            <i class="fas fa-check id-confirm-icon"></i>
                         </span>
                     </p>
                     <button onclick="checkdup()" id="check-dup">
                         중복확인
                     </button>
                 </div>
+                <p class="register-desc id-text-msg">
+                    영문과 숫자, 일부 특수문자(._-)만 사용 가능, 2-10자 길이.
+                    영문 무조건 포함
+                </p>
 
                 <div class="field is-horizontal">
                     <div class="field-body">
@@ -93,13 +106,15 @@
                                     class="input"
                                     id="usernick"
                                     placeholder="닉네임"
+                                    disabled
+                                    onkeyup="check_nick()"
                                 />
                                 <span class="icon is-small is-left">
                                     <i class="bx bx-user"></i>
                                 </span>
                             </div>
-                            <p class="register-desc">
-                                닉네임은 2-10자의 영문과 숫자만 입력 가능합니다.
+                            <p class="register-desc nick-text-msg">
+                                닉네임을 입력해주세요
                             </p>
                         </div>
                     </div>
@@ -113,12 +128,14 @@
                                     class="input"
                                     id="userpw"
                                     placeholder="Password"
+                                    onkeyup="check_pw()"
+                                    disabled
                                 />
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
                             </div>
-                            <p class="register-desc">
+                            <p class="register-desc pw-text-msg">
                                 영문과 숫자 조합의 8-20자의 비밀번호를
                                 설정해주세요.특수문자(!@#$%^&*)도 사용
                                 가능합니다.
@@ -135,13 +152,15 @@
                                     class="input"
                                     id="pwconfirm"
                                     placeholder="Password Confirm"
+                                    disabled
+                                    onkeyup="confirm_pw()"
                                 />
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
                             </div>
-                            <p class="register-desc">
-                                비밀번호를 다시 한 번 입력해주세요.
+                            <p class="register-desc pw-confirm-text-msg">
+                                비밀번호가 틀립니다
                             </p>
                         </div>
                     </div>

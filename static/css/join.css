@@ -43,16 +43,24 @@
     color: green;
 }
 
+/* validation for email, id, nickname, password and password-confirm */
+.register-desc {
+    display: none;
+    color: red;
+    font-size: 12px;
+}
+
+.id-text-msg {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
 .container .title {
     margin-bottom: 40px;
 }
 
 .input {
     margin-bottom: 10px;
-}
-
-.register-desc {
-    font-size: 12px;
 }
 
 .button {
