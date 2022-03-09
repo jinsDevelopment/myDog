@@ -95,6 +95,8 @@ def bucket_get():
 
 # [회원가입 API]
 
+from datetime import datetime
+
 @app.route('/api/join', methods=['POST'])
 def api_join():
     email_receive = request.form['email']
@@ -102,6 +104,27 @@ def api_join():
     pw_receive = request.form['pw']
     nickname_receive = request.form['nickname']
     dogCode_receive = request.form['dogCode'].split(",")
+
+    # 현재시간 구해오기
+    now = datetime.now()
+    date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
+    imgUrl = ""
+
+    if len(request.files) != 0:
+        # 새로운 이름을 만들어주기
+        filename = f'file-{date_time}'
+
+        # 확장자를 빼내기
+        file = request.files['file']
+        extension = file.filename.split(",")[-1]
+
+        # 새로운 이름으로 저장하기
+        save_to = f'static/images/{filename}.{extension}'
+        file.save(save_to)
+
+        imgUrl = f'{filename}.{extension}'
+    else:
+        imgUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
@@ -111,6 +134,7 @@ def api_join():
         "password": pw_hash,  
         "nickname": nickname_receive,
         "dogId": dogCode_receive,
+        'imgUrl': imgUrl,
     }
 
     db.user.insert_one(doc)
@@ -160,10 +184,7 @@ def api_login():
 
 
 
-import certifi
-mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
-clientT = MongoClient(mongo_connect,tlsCAFile=certifi.where())
-dbT = clientT.dbIntroDog
+
 
 
 #############################
@@ -191,4 +212,4 @@ def search():
 # 실행 파일
 ##############################################
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=2000, debug=True)

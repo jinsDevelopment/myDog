@@ -36,6 +36,8 @@
     height: 42px;
     width: 100px;
     margin-left: -10px;
+    border-radius: 5px;
+    background: rgb(225, 234, 245);
 }
 
 .fa-check {
@@ -73,6 +75,18 @@
 
 button {
     margin-top: 20px;
+}
+
+.dog-text-msg {
+    display: none;
+    color: red;
+    font-size: 12px;
+}
+
+/* Profile Image styling */
+
+.profile-label {
+    margin-right: 20px;
 }
 
 /* multicheckbox dropdown */

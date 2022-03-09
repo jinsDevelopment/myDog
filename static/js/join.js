@@ -1,14 +1,20 @@
-let enabledSettings = [];
+$(document).ready(function () {
+    bsCustomFileInput.init();
+});
 
+let enabledSettings = [];
+// let file = $("#file")[0].files[0];
 function join() {
     let dog_result = enabledSettings.toString();
 
     // checking email, nickname, password, password-confirm
+
     let email = $("#useremail").val();
     let id = $("#userid").val();
     let nickname = $("#usernick").val();
     let password = $("#userpw").val();
-    let password_confirm = $("#pwconfirm").val();
+    let file = $("#file")[0].files[0];
+    let form_data = new FormData();
     regExpId = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
     // checking if validation is successful:
 
@@ -20,16 +26,27 @@ function join() {
             if ($("#usernick").hasClass("regex-confirm-nick")) {
                 if ($("#userpw").hasClass("regex-confirm-pw")) {
                     if ($("#pwconfirm").hasClass("pw-confirm")) {
+                        form_data.append("file", file);
+                        form_data.append("email", email);
+                        form_data.append("id", id);
+                        form_data.append("nickname", nickname);
+                        form_data.append("pw", password);
+                        form_data.append("dogCode", dog_result);
+
                         $.ajax({
                             type: "POST",
                             url: "/api/join",
-                            data: {
-                                email: $("#useremail").val(),
-                                id: $("#userid").val(),
-                                nickname: $("#usernick").val(),
-                                pw: $("#userpw").val(),
-                                dogCode: dog_result,
-                            },
+                            data: form_data,
+
+                            // email: $("#useremail").val(),
+                            // id: $("#userid").val(),
+                            // nickname: $("#usernick").val(),
+                            // pw: $("#userpw").val(),
+                            // dogCode: dog_result,
+                            // file: file,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
                             success: function (response) {
                                 if (response["result"] == "success") {
                                     alert("회원가입이 완료되었습니다.");
@@ -46,22 +63,26 @@ function join() {
         }
     }
     // checking if validation is unsuccessful
-    if (email.includes("@") == false || email.includes(".") == false) {
-        $(".email-confirm").hide();
-        $(".email-text-msg").show();
-    }
-    if (regExpId.test(id) == false) {
-        alert("아이디 방식이 잘못되었습니다");
-    }
+    // if (email.includes("@") == false || email.includes(".") == false) {
+    //     $(".email-confirm").hide();
+    //     $(".email-text-msg").show();
+    // }
+    // if (regExpId.test(id) == false) {
+    //     alert("아이디 방식이 잘못되었습니다");
+    // }
     if ($("#userid").hasClass("id-confirm") == false) {
         alert("아이디 중복확인이 필요합니다");
     }
     if ($("#userpw").hasClass("regex-confirm-pw") == false) {
         alert("비밀번호 방식이 잘못되었습니다");
     }
-    if ($("#pwconfirm").hasClass("pw-confirm") == false) {
-        alert("비밀번호가 틀립니다");
-    }
+    // if ($("#pwconfirm").hasClass("pw-confirm") == false) {
+    //     alert("비밀번호가 틀립니다");
+    // }
+    // if (jQuery.isEmptyObject(enabledSettings) == true) {
+    //     $(".dog-text-msg").show();
+    //     alert("강아지 정보를 입력해주세요!");
+    // }
 }
 
 // 이메일 정규표현식
@@ -194,6 +215,7 @@ function checkbox_append() {
                                         name="${name}"
                                         id="${name}"
                                         value=${id}
+                                
                                     />
                                     ${name}
                                 </label>`;
@@ -211,17 +233,26 @@ function checkbox_append() {
                         .map((i) => i.value); // Use Array.map to extract only the checkbox values from the array of objects.
 
                     console.log(enabledSettings);
-                    for (let i = 0; i < enabledSettings.length; i++) {
-                        console.log(enabledSettings[i]);
-                        let result = enabledSettings[i];
-                        let select_name = $("input[value=" + result + "]").attr(
-                            "id"
-                        );
-                        let temp_html = `<button onclick="takeOut(${result})" class="${result}"style="width:100px; height:40px; margin: 10px;">${select_name}</button>`;
-                        if (select_name.length > 7) {
-                            temp_html = `<button onclick="takeOut(${result})" class="${result}"style="width:140px; height:40px; margin: 10px; padding:0;">${select_name}</button>`;
+                    $(".dog-text-msg").hide();
+                    if ($("input[value='00']").prop("checked") == true) {
+                        while (enabledSettings.length > 0) {
+                            enabledSettings.pop();
+                            console.log(enabledSettings);
                         }
-                        $(".show-list").append(temp_html);
+                    } else {
+                        for (let i = 0; i < enabledSettings.length; i++) {
+                            console.log(enabledSettings[i]);
+                            let result = enabledSettings[i];
+                            let select_name = $(
+                                "input[value=" + result + "]"
+                            ).attr("id");
+                            let temp_html = `<button onclick="takeOut(${result})" class="${result}"style="width:120px; height:40px; margin: 10px; ">${select_name}</button>`;
+                            if (select_name.length > 7) {
+                                temp_html = `<button onclick="takeOut(${result})" class="${result}"style="width:140px; height:40px; margin: 10px; padding:0; ">${select_name}</button>`;
+                            }
+                            $(".show-list").append(temp_html);
+                            console.log(enabledSettings);
+                        }
                     }
                 });
             });
@@ -229,6 +260,7 @@ function checkbox_append() {
     });
 }
 
+// pop array when clicking buttons below the checklist dropdown
 function takeOut(result) {
     console.log(result);
     if (result <= 9) {
@@ -245,7 +277,8 @@ function takeOut(result) {
     console.log(enabledSettings);
 }
 
-// onlyOneCheckBox();
+// checkbox limit = 3
+// If 없음 is selected, all other checkboxes are disabled
 function onlyOneCheckBox() {
     var checkboxgroup = document
         .getElementById("checkboxgroup")
@@ -253,16 +286,54 @@ function onlyOneCheckBox() {
     var limit = 3;
     for (var i = 0; i < checkboxgroup.length; i++) {
         checkboxgroup[i].onclick = function () {
-            var checkedcount = 0;
-            for (var i = 0; i < checkboxgroup.length; i++) {
-                checkedcount += checkboxgroup[i].checked ? 1 : 0;
-            }
-            if (checkedcount > limit) {
-                console.log(
-                    "You can select maximum of " + limit + " checkbox."
-                );
-                alert("최대  " + limit + "개 까지 고를실 수 있어요!");
-                this.checked = false;
+            if ($($("input[value='00']").prop("checked") == true)) {
+                let mybox = $("input:checkbox").length;
+                for (let i = 1; i < mybox; i++) {
+                    if (i <= 9) {
+                        let num = "0" + i;
+                        $("input[value=" + num + "]").attr("disabled", true);
+                        $(".dog-text-msg").hide();
+                    } else {
+                        let num = i;
+                        $("input[value=" + num + "]").attr("disabled", true);
+                        $(".dog-text-msg").hide();
+                    }
+                }
+
+                if ($("input[value='00']").prop("checked") == false) {
+                    let mybox = $("input:checkbox").length;
+                    for (let i = 1; i < mybox; i++) {
+                        if (i <= 9) {
+                            let num = "0" + i;
+                            $("input[value=" + num + "]").attr(
+                                "disabled",
+                                false
+                            );
+                        } else {
+                            let num = i;
+                            $("input[value=" + num + "]").attr(
+                                "disabled",
+                                false
+                            );
+                        }
+                        var checkedcount = 0;
+                        for (let i = 0; i < checkboxgroup.length; i++) {
+                            checkedcount += checkboxgroup[i].checked ? 1 : 0;
+                        }
+                        if (checkedcount > limit) {
+                            console.log(
+                                "You can select maximum of " +
+                                    limit +
+                                    " checkbox."
+                            );
+                            alert(
+                                "최대  " + limit + "개 까지 고를실 수 있어요!"
+                            );
+                            this.checked = false;
+                        }
+                        $(".dog-text-msg").show();
+                    }
+                }
             }
         };
     }
@@ -272,5 +343,31 @@ document.querySelector(".select-field").addEventListener("click", () => {
     document.querySelector(".list").classList.toggle("show");
     document.querySelector(".down-arrow").classList.toggle("rotate180");
 });
+
+// Profile limiting file type
+
+function fileCheck() {
+    if ($("#file")[0].files.length == 0) {
+        return;
+    }
+
+    let filename = $("#file")[0].files[0].name;
+    let pathpoint = filename.lastIndexOf(".");
+    let filepoint = filename.substring(pathpoint + 1, filename.length);
+    let filetype = filepoint.toLowerCase();
+
+    if (
+        filetype == "jpg" ||
+        filetype == "gif" ||
+        filetype == "png" ||
+        filetype == "jpeg" ||
+        filetype == "bmp"
+    ) {
+    } else {
+        alert("이미지 파일만 선택할 수 있습니다.");
+        $("#file").val("");
+        return;
+    }
+}
 
 // checkbox "없음"을 고르면 다른 선택 불가능
