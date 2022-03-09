@@ -1,16 +1,49 @@
+/* *************
+* board
+*****************/
+.board-header {
+  display: flex;
+  justify-content: space-between;
+}
+.board-header > div {
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  color: #333;
+}
+/* *************
+* board_write
+*****************/
+.board_write_wrap {
+  padding: 0 20px !important;
+}
+.board_write_header {
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  color: #333;
+}
+.write-form {
+  padding: 20px;
+}
+.btn-write-form {
+  padding: 10px 0;
+  text-align: right;
+}
+/* *************
+* posting box
+*****************/
 .posting-box {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .posting-box > .custom-file {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .container {
-    padding-left: 50px;
+  padding-left: 50px;
 }
 
 .wrap {
-    min-height: 100vh;
-    padding-bottom: 50px;
+  min-height: 100vh;
+  padding-bottom: 50px;
 }

@@ -58,10 +58,22 @@ button {
   border-right: 0.2rem solid #666;
   transform: rotate(45deg);
 }
-.invite__box >div {
+.invite__box > div {
   position: relative;
   right: 5px;
 }
+.community__wrap > a:after {
+  display:block;
+  content: '';
+  border-bottom: solid 3px #b67c46;  
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+  transform-origin: 0% 50%;
+}
+.community__wrap > a:hover:after {
+  transform: scaleX(1);
+}
+
 .btn-logout {
   margin-top: 3px;
   padding: 0px 10px;
