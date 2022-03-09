@@ -1,50 +1,50 @@
-@import url("https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&family=The+Nautigal&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&family=The+Nautigal&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Noto Sans KR", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .hero-body {
-    text-align: center;
+  text-align: center;
 }
 
 .hero-body .title {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
-.container {
-    width: 500px;
-    height: 400px;
-    background: rgb(236, 231, 231);
-    padding: 40px;
-    border-radius: 10px;
-    border: solid 2px rgb(236, 231, 231);
-    margin-top: -10px;
+.container_body {
+  width: 500px;
+  height: 400px;
+  background: rgb(236, 231, 231);
+  padding: 40px;
+  border-radius: 10px;
+  border: solid 2px rgb(236, 231, 231);
+  margin-top: -10px;
 }
 
 .container .title {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .button-section {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .button-section button {
-    width: 100%;
+  width: 100%;
 }
 
 .line-through {
-    width: 100%;
-    height: 1px;
-    box-shadow: 2px 2px 2px grey;
-    margin-bottom: 10px;
-    margin-top: 15px;
+  width: 100%;
+  height: 1px;
+  box-shadow: 2px 2px 2px grey;
+  margin-bottom: 10px;
+  margin-top: 15px;
 }
 
 .button-section p {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }

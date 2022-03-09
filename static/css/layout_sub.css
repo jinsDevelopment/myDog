@@ -1,0 +1,138 @@
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
+}
+button {
+  all: unset;
+  padding: 0;
+}
+.blind {
+  position: absolute;
+  overflow: hidden;
+  visibility: hidden;
+  margin: -1px;
+  width: 0px;
+  height: 0px;
+  top: -9999px;
+  font-size: 0;
+}
+body,
+html {
+  height: 100%;
+}
+/************ 
+ * header
+ *************/
+
+.header-logo {
+  font-size: 40px;
+  font-family: 'Righteous', cursive;
+}
+.header-logo > img {
+  width: 40px;
+  margin-left: 6px;
+}
+.community__wrap {
+  position: relative;
+}
+.invite__box {
+  position: absolute;
+  text-align: center;
+  letter-spacing: -0.08em;
+  line-height: 18px;
+  top: -7px;
+  left: -180px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid #ccc;
+  border-radius: 40px;
+  padding: 10px;
+  animation: motion 0.4s linear 0s infinite alternate;
+  width: 160px;
+}
+.invite__box:after {
+  content: '';
+  display:inline-block;
+  position: absolute;
+  top: 20px;
+  right: 8px;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-left: 0.5rem;
+  border-top: 0.2rem solid #666;
+  border-right: 0.2rem solid #666;
+  transform: rotate(45deg);
+}
+.invite__box > div {
+  position: relative;
+  right: 5px;
+}
+.community__wrap > a:after {
+  display:block;
+  content: '';
+  border-bottom: solid 3px #b67c46;  
+  transform: scaleX(0);
+  transition: transform 250ms ease-in-out;
+  transform-origin: 0% 50%;
+}
+.community__wrap > a:hover:after {
+  transform: scaleX(1);
+}
+.layout__nav {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.btn-logout {
+  margin-top: 3px;
+  padding: 0px 10px;
+}
+
+@keyframes motion {
+  0% {
+    left: -165px;
+  }
+  100% {
+    left: -160px;
+  }
+}
+/************ 
+ * footer
+ *************/
+.footer__wrap {
+  background-color: #ccc;
+  position: absolute;
+  bottom: 0;
+  left:0;
+  right:0;
+}
+/* .footerFont {
+  margin-bottom: 0 !important;
+  background-color: #ccc;
+} */
+
+
+
+/************ 
+ * topBtn
+ *************/
+.top__btn {
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  border-radius: 30px;
+  background-color: #5f3a17;
+  color: #ddd;
+  font-weight: 700;
+  font-size: 15px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
+.top__btn:hover,
+.top__btn:active {
+  background-color: #301d0b;
+}
+
+/* * {
+  font-family: 'Jua', sans-serif;
+}
