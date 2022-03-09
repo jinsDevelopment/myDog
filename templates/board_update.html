@@ -6,11 +6,11 @@
             bsCustomFileInput.init();
         });
 
-
-        function board_save() {
+        function board_update() {
 
             let title = $('#title').val()
             let contents = $("#contents").val()
+            let boardid = $("#boardid").val()
 
             if (title == '') {
                 alert("제목을 입력하세요.");
@@ -21,32 +21,34 @@
                 return;
             }
 
+            let filename = $('#filename').val()
             let file = $('#file')[0].files[0]
             let form_data = new FormData()
 
+            form_data.append("orgFile", filename)
+            form_data.append("boardId", boardid)
             form_data.append("file", file)
             form_data.append("title", title)
             form_data.append("contents", contents)
-            form_data.append("userid", "jinseo")   //임시
 
             $.ajax({
-                type: "POST",
-                url: "/board/create",
+                type: "PUT",
+                url: "/board/update",
                 data: form_data,
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: function (response) {
                     alert(response["msg"])
-                    window.location.href = "/board/select";
+                    window.location.href = "/board/detail?id="+boardid;
                 }
             });
 
         }
 
         function fileCheck() {
-
             if ($('#file')[0].files.length == 0) {
+                $('#filename').val('');
                 return;
             }
 
@@ -63,6 +65,7 @@
                 return;
             }
 
+            $('#filename').val(filename);
 
         }
 
@@ -77,20 +80,27 @@
             <div class="container">
                 <h1>글 쓰기</h1>
                 <div class="posting-box">
+                    <input hidden id="boardid" value='{{ board['id'] }}'>
                     <div class="custom-file">
                         <input type="file" id="file" class="custom-file-input" onchange="fileCheck()"
                                accept="image/gif,image/jpeg,image/png">
                     </div>
                     <div class="form-group">
+                        <label for="exampleFormControlTextarea1">현재 파일</label>
+                        <input type="text" style="margin-top: 10px" class="form-control" id="filename" readonly
+                               value='{{ board['imgUrl'] }}'>
+                    </div>
+                    <div class="form-group">
                         <label for="exampleFormControlInput1">제목</label>
-                        <input type="text" class="form-control" id="title" placeholder="제목">
+                        <input type="text" class="form-control" id="title" placeholder="제목"
+                               value='{{ board['title'] }}'>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">내용</label>
-                        <textarea class="form-control" id="contents" rows="3"></textarea>
+                        <textarea class="form-control" id="contents" rows="3">{{ board['contents'] }}</textarea>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary" onclick="board_save()">저장</button>
+                        <button class="btn btn-primary" onclick="board_update()">저장</button>
                         <button class="btn btn-primary" onclick="goBack()">취소</button>
                     </div>
                 </div>
