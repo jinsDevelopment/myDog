@@ -26,21 +26,3 @@
 * {
   font-family: 'Jua', sans-serif;
 }
-
-.posting-box {
-  width: 500px;
-  margin-top: 20px;
-}
-
-.wrap {
-  width: 900px;
-  margin: auto;
-}
-
-.container {
-  padding-left: 50px;
-}
-
-.posting-box > .custom-file {
-  margin-bottom: 20px;
-}

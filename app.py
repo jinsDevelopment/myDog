@@ -4,10 +4,13 @@ from python.board import board
 import jwt
 import datetime
 import hashlib
+import certifi
+mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
+client = MongoClient(mongo_connect,tlsCAFile=certifi.where())
+db = client.dbIntroDog
 
 app = Flask(__name__)
 app.register_blueprint(board)
-
 
 @app.route('/')
 def home():
@@ -17,16 +20,10 @@ def home():
 def community():
     return render_template('community.html')
 
-
-
-
-
 client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dblewigolski
 
 SECRET_KEY = 'SPARTA'
-
-
 
 #################################
 ##  HTML을 주는 부분             ##
@@ -158,13 +155,6 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
-
-import certifi
-mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
-client = MongoClient(mongo_connect,tlsCAFile=certifi.where())
-db = client.dbIntroDog
-
-
 
 
 #####################################################
