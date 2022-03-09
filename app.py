@@ -48,6 +48,37 @@ def home():
         except jwt.exceptions.DecodeError:
             return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
+<<<<<<< Updated upstream
+=======
+
+
+######## testing
+
+def hometest(x):
+    x = "index.html"
+    test(x)
+
+def boardtest(x):
+    x = "index.html"
+    test(x)
+
+def test(x):
+    token_receive = request.cookies.get('mytoken')
+    if token_receive is None:
+        return render_template('index.html')
+    else:
+        try:
+            payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+            user_info = db.user.find_one({"id": payload['id']})
+            return render_template('f"{x}"', nickname=user_info["nickname"])
+        except jwt.ExpiredSignatureError:
+            return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
+        except jwt.exceptions.DecodeError:
+            return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
+
+
+>>>>>>> Stashed changes
 @app.route('/boardList')
 def board_list():
     token_receive = request.cookies.get('mytoken')
