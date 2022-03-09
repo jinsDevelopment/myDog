@@ -100,20 +100,25 @@
         <div class="posting-box">
           <input hidden id="boardid" value='{{ board['id'] }}'>
           <div class="text-center">
+            <div class="form-group">
+              <label for="exampleFormControlInput1" class="blind">제목</label>
+              <input type="text" class="form-control detail-title" id="title"
+              placeholder="제목" value='{{ board['title'] }}' readonly>
+            </div>
             <img
               src="../static/images/{{ board['imgUrl'] }}"
-              class="rounded"
+              class="rounded detail-img"
               alt="..."
             />
           </div>
           <div class="form-group">
-            <label for="exampleFormControlInput1">제목</label>
-            <input type="text" class="form-control" id="title"
-            placeholder="제목" value='{{ board['title'] }}' readonly>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1">내용</label>
-            <textarea class="form-control" id="contents" rows="3" readonly>
+            <label for="exampleFormControlTextarea1" class="blind">내용</label>
+            <textarea
+              class="form-control detail-body"
+              id="contents"
+              rows="3"
+              readonly
+            >
 {{ board['contents'] }}</textarea
             >
           </div>

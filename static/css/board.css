@@ -44,6 +44,26 @@
   text-align: right;
   padding-top: 10px;
 }
+.detail-img {
+  padding: 20px 0;
+}
+.detail-title,
+.detail-body {
+  background-color: transparent !important;
+  border: none;
+}
+.detail-title:focus,
+.detail-body:focus {
+  box-shadow: none;
+}
+.detail-title {
+  font-size: 30px;
+  font-weight: 700;
+  border: 0px;
+}
+.detail-body {
+  resize: none;
+}
 /* *************
 * posting box
 *****************/

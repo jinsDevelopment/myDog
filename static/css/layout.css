@@ -73,6 +73,10 @@ button {
 .community__wrap > a:hover:after {
   transform: scaleX(1);
 }
+.layout__nav {
+  font-size: 20px;
+  font-weight: 500;
+}
 
 .btn-logout {
   margin-top: 3px;
