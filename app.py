@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, make_response
-from python.board import board
+from python.dog_board import board
 import jwt
 import datetime
 import hashlib
