@@ -1,6 +1,6 @@
 from pymongo import MongoClient
-from flask import Flask, render_template, jsonify, request, session, redirect, url_for, make_response
-from python.dog_board import board
+from flask import Flask, render_template, jsonify, request, redirect, url_for, make_response
+from board.dog_board import board
 import jwt
 import datetime
 import hashlib
@@ -13,7 +13,6 @@ db = client.dbIntroDog
 
 app = Flask(__name__)
 app.register_blueprint(board)
-
 
 # @app.route('/')
 # def home():
@@ -71,6 +70,7 @@ def auth_token(page):
 #################################
 @app.route('/')
 def home():
+    print(sys.path.append('python.dog_board'))
     return auth_token('index.html')
 
 
