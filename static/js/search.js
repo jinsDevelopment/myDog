@@ -4,7 +4,7 @@ const searchBtn = document.querySelector('.btn-search');
 const searchForm = document.querySelector('.search__bar');
 
 // form의 submit을 막아 줍니다.
-searchForm.addEventListener('keydown', (e) => {
+searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
 });
 
