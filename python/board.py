@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import certifi
-
+import app
+import json
 mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
 client = MongoClient(mongo_connect, tlsCAFile=certifi.where())
 db = client.dbIntroDog
@@ -15,10 +16,15 @@ board = Blueprint("board", __name__, url_prefix="/board", template_folder="templ
 # 게시글 작성
 @board.route('/write', methods=["GET"])
 def board_write():
-    print('board/write')
-    # Token인증시 - render_template('board_write.html'),
-    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
-    return render_template('board_write.html')
+
+    # Token 미인증시 - 상황에 맞는 errorCode 출력
+    if app.auth_token('board_write.html').get_json() is None:
+        return app.auth_token('board_write.html')
+
+    else:
+        # Token 인증시 - render_template('board_write.html'),
+        user_id = app.auth_token('board_write.html').get_json()['userId']
+        return render_template('board_write.html', user_id = user_id)
 
 
 # 게시글 목록
@@ -28,8 +34,6 @@ def board_list():
     for i in range(0, len(boardList), 1):
         if boardList[i]['imgUrl'] == '':
             boardList[i]['imgUrl'] = 'empty.jpg'
-    # Token인증시 - render_template('board_write.html'),
-    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
     return render_template('board_list.html', result=boardList)
 
 
@@ -93,18 +97,23 @@ def board_save():
     # - createTime(게시글작성시간)
     # - updateTime(게시글수정시간)
 
-    # Token인증시 - render_template('board_write.html'),
-    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
     return jsonify({"msg": "저장되었습니다."})
 
 
 # 게시글 수정 화면 렌더링
 @board.route('/modify', methods=["GET"])
 def board_modify():
-    board = db.board.find_one({'id': int(request.args.get('id'))}, {'_id': False})
-    # Token인증시 - render_template('board_update.html'),
-    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
-    return render_template('board_update.html', board=board)
+
+    # Token 미인증시 - 상황에 맞는 errorCode 출력
+    if app.auth_token('board_update.html').get_json() is None:
+        return app.auth_token('board_update.html')
+
+    else:
+        # Token 인증시 - render_template('board_update.html'),
+        user_id = app.auth_token('board_update.html').get_json()['userId']
+        board = db.board.find_one({'id': int(request.args.get('id'))}, {'_id': False})
+        return render_template('board_update.html', board = board, user_id = user_id)
+
 
 
 # 게시글 수정
@@ -168,15 +177,20 @@ def board_update():
 # 게시글 상세
 @board.route('/detail', methods=["GET"])
 def board_detail():
-    board = db.board.find_one({'id': int(request.args.get('id'))}, {'_id': False})
-    reply_list = list(db.reply.find({'boardId': int(request.args.get('id'))}, {'_id': False}))
 
-    if board['imgUrl'] == '':
-        board['imgUrl'] = 'empty.jpg'
+    # Token 미인증시 - 상황에 맞는 errorCode 출력
+    if app.auth_token('board_detail.html').get_json() is None:
+        return app.auth_token('board_detail.html')
 
-    # Token인증시 - render_template('board_detail.html'),
-    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
-    return render_template('board_detail.html', board=board, reply=reply_list)
+    else:
+        # Token 인증시 - render_template('board_detail.html')
+        user_id = app.auth_token('board_detail.html').get_json()['userId']
+        board = db.board.find_one({'id': int(request.args.get('id'))}, {'_id': False})
+        reply_list = list(db.reply.find({'boardId': int(request.args.get('id'))}, {'_id': False}))
+        if board['imgUrl'] == '':
+            board['imgUrl'] = 'empty.jpg'
+
+        return render_template('board_detail.html', board=board, reply=reply_list, user_id=user_id)
 
 
 # 게시글 삭제

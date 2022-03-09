@@ -1,120 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- Webpage Title -->
-        <title>Hello, world!</title>
+<head>
+    <!-- Webpage Title -->
+    <title>Hello, world!</title>
 
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <!-- Bootstrap CDN + JQuery Link -->
-        <link
+    />
+    <!-- Bootstrap CDN + JQuery Link -->
+    <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
-        />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"
-        ></script>
+    ></script>
 
-        <!-- Bulma CSS -->
-        <link
+    <!-- Bulma CSS -->
+    <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
-        />
-        <script
+    />
+    <script
             defer
             src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
-        ></script>
-        <!-- JS cookie CDN -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    ></script>
+    <!-- JS cookie CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
-        <!-- css -->
-        <link rel=stylesheet type=text/css href="{{ url_for('static',
+    <!-- css -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static',
         filename='css/login.css') }}">
-        <!-- script -->
-        <script src="{{ url_for('static', filename='js/login.js') }}"></script>
-    </head>
-    <body>
-        <section class="hero is-warning">
-            <div class="hero-body">
-                <p class="title">IntroDog</p>
-                <p class="subtitle">서브헤딩</p>
-            </div>
-        </section>
-        <div class="section has-text-centered">
-            <div class="container">
-                <h1 class="title">Log-in to IntroDog</h1>
-                <div class="field is-horizontal">
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <p
-                                    class="control has-icons-left has-icons-right"
-                                >
-                                    <input
-                                        type="text"
-                                        class="input"
-                                        id="userid"
-                                        aria-describedby="emailHelp"
-                                        placeholder="Email"
-                                    />
-                                    <span class="icon is-small is-left">
+    <!-- script -->
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            if ( "{{ msg }}" != ''){
+                alert("{{ msg }}");
+            }
+        });
+
+
+    </script>
+
+</head>
+<body>
+<section class="hero is-warning">
+    <div class="hero-body">
+        <p class="title">IntroDog</p>
+        <p class="subtitle">서브헤딩</p>
+    </div>
+</section>
+<div class="section has-text-centered">
+    <div class="container">
+        <h1 class="title">Log-in to IntroDog</h1>
+        <div class="field is-horizontal">
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <p
+                                class="control has-icons-left has-icons-right"
+                        >
+                            <input
+                                    type="text"
+                                    class="input"
+                                    id="userid"
+                                    aria-describedby="emailHelp"
+                                    placeholder="Email"
+                            />
+                            <span class="icon is-small is-left">
                                         <i class="fas fa-envelope"></i>
                                     </span>
-                                </p>
-                            </div>
-                        </div>
+                        </p>
                     </div>
                 </div>
-                <div class="field is-horizontal">
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <p
-                                    class="control has-icons-left has-icons-right"
-                                >
-                                    <input
-                                        type="password"
-                                        class="input"
-                                        id="userpw"
-                                        placeholder="Password"
-                                    />
-                                    <span class="icon is-small is-left">
-                                        <i class="fas fa-lock"></i>
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <section class="button-section">
-                    <button
-                        onclick="login()"
-                        type="button"
-                        class="btn btn-dark"
-                    >
-                        Log in
-                    </button>
-                    <div class="line-through"></div>
-                    <p>아직 회원이 아니라면</p>
-                    <button
-                        onclick="join()"
-                        type="button"
-                        class="btn btn-light"
-                    >
-                        Sign Up
-                    </button>
-                </section>
             </div>
         </div>
-    </body>
+        <div class="field is-horizontal">
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <p
+                                class="control has-icons-left has-icons-right"
+                        >
+                            <input
+                                    type="password"
+                                    class="input"
+                                    id="userpw"
+                                    placeholder="Password"
+                            />
+                            <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="button-section">
+            <button
+                    onclick="login()"
+                    type="button"
+                    class="btn btn-dark"
+            >
+                Log in
+            </button>
+            <div class="line-through"></div>
+            <p>아직 회원이 아니라면</p>
+            <button
+                    onclick="join()"
+                    type="button"
+                    class="btn btn-light"
+            >
+                Sign Up
+            </button>
+        </section>
+    </div>
+</div>
+</body>
 </html>
