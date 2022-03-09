@@ -46,9 +46,11 @@ body {
 }
 .thumbnail {
   transition: all 0.2s ease-in-out;
+  filter: grayscale(20%);
 }
 .thumbnail:hover {
   transform: scale(1.05);
+  filter: none;
 }
 .thunmbnail__title {
   text-align: center;

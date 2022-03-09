@@ -19,6 +19,7 @@ button {
 /************ 
  * header
  *************/
+
 .header-logo {
   font-size: 40px;
   font-family: 'Righteous', cursive;
@@ -26,6 +27,34 @@ button {
 .header-logo > img {
   width: 40px;
   margin-left: 6px;
+}
+.community__wrap {
+  position: relative;
+}
+.invite__box {
+  position: absolute;
+  text-align: center;
+  letter-spacing: -0.08em;
+  line-height: 18px;
+  top: -5px;
+  left: -180px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 40px;
+  padding: 10px;
+  animation: motion 0.4s linear 0s infinite alternate;
+  width: 160px;
+  z-index: 100;
+}
+/* .wrap {text-align: center; margin-top: 20px;} */
+
+@keyframes motion {
+  0% {
+    left: -165px;
+  }
+  100% {
+    left: -155px;
+  }
 }
 /************ 
  * footer
