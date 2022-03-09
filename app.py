@@ -20,8 +20,7 @@ def home():
 def community():
     return render_template('community.html')
 
-client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
-db = client.dblewigolski
+
 
 SECRET_KEY = 'SPARTA'
 
@@ -39,6 +38,8 @@ SECRET_KEY = 'SPARTA'
 #         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
 #     except jwt.exceptions.DecodeError:
 #         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
+
 
 @app.route('/boardList')
 def board_list():
@@ -75,14 +76,19 @@ def login():
 def register():
     return render_template('join.html')
 
+####### 데이터베이스에서 dog id랑 name 값 받아서 체크박스에 append시키기 ########
+@app.route("/dog/list", methods=["GET"])
+def bucket_get():
+    dog = list(db.dog.find({}, {'_id': False}))
+    return jsonify({'msg': dog})
+
 
 #################################
 ##  로그인을 위한 API            ##
 #################################
 
 # [회원가입 API]
-# id, pw, nickname을 받아서, mongoDB에 저장합니다.
-# 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
+
 @app.route('/api/join', methods=['POST'])
 def api_register():
     id_receive = request.form['id']
@@ -98,7 +104,7 @@ def api_register():
 
 
 # [로그인 API]
-# id, pw를 받아서 맞춰보고, 토큰을 만들어 발급합니다.
+
 @app.route('/api/login', methods=['POST'])
 def api_login():
     id_receive = request.form['id']
