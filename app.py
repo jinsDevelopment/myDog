@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from flask import Flask, render_template, jsonify, request, redirect, url_for, make_response
-from board.dog_board import board
+import board.dog_board
 import jwt
 import datetime
 import hashlib
@@ -12,7 +12,7 @@ client = MongoClient(mongo_connect, tlsCAFile=certifi.where())
 db = client.dbIntroDog
 
 app = Flask(__name__)
-app.register_blueprint(board)
+app.register_blueprint(board.dog_board)
 
 # @app.route('/')
 # def home():
