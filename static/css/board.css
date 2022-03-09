@@ -1,9 +1,11 @@
+.board-wrap,
+.board_write_wrap,
+.detail-wrap {
+  padding: 0 20px !important;
+}
 /* *************
 * board
 *****************/
-.board-wrap {
-  padding: 0 20px !important;
-}
 .board-header {
   display: flex;
   justify-content: space-between;
@@ -23,9 +25,6 @@
 /* *************
 * board_write
 *****************/
-.board_write_wrap {
-  padding: 0 20px !important;
-}
 .board_write_header {
   font-size: 30px;
   letter-spacing: -0.04em;
@@ -37,6 +36,13 @@
 .btn-write-form {
   padding: 10px 0;
   text-align: right;
+}
+/* *************
+* borad_detail
+*****************/
+.btn-detail-form {
+  text-align: right;
+  padding-top: 10px;
 }
 /* *************
 * posting box
