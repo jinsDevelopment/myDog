@@ -69,42 +69,38 @@
   }
 </script>
 <body>
-  <div class="wrap">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container board_write_wrap">
-        <header class="board_write_header">
-          사소한 것도 좋아요. 오늘은 무슨 일이 있으셨나요? 😁
-        </header>
-        <div class="posting-box">
-          <div class="write-form">
-            <div class="custom-file">
-              <input
-                type="file"
-                id="file"
-                class="custom-file-input"
-                onchange="fileCheck()"
-                accept="image/gif,image/jpeg,image/png"
-              />
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlInput1">제목</label>
-              <input
-                type="text"
-                class="form-control"
-                id="title"
-                placeholder="제목"
-              />
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">내용</label>
-              <textarea class="form-control" id="contents" rows="10"></textarea>
-            </div>
-            <div class="form-group btn-write-form">
-              <button class="btn btn-primary" onclick="board_save()">
-                저장
-              </button>
-              <button class="btn btn-primary" onclick="goBack()">취소</button>
-            </div>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container board_write_wrap">
+      <header class="board_write_header">
+        사소한 것도 좋아요. 오늘은 무슨 일이 있으셨나요? 😁
+      </header>
+      <div class="posting-box">
+        <div class="write-form">
+          <div class="custom-file">
+            <input
+              type="file"
+              id="file"
+              class="custom-file-input"
+              onchange="fileCheck()"
+              accept="image/gif,image/jpeg,image/png"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">제목</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="제목"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">내용</label>
+            <textarea class="form-control" id="contents" rows="10"></textarea>
+          </div>
+          <div class="form-group btn-write-form">
+            <button class="btn btn-primary" onclick="board_save()">저장</button>
+            <button class="btn btn-primary" onclick="goBack()">취소</button>
           </div>
         </div>
       </div>
