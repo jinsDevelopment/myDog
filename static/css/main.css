@@ -7,6 +7,10 @@ body {
 /**********************************
  * banner
  ************************************/
+.banner__title {
+  color: #ac784b;
+  letter-spacing: -0.05em;
+}
 .lead {
   padding-bottom: 20px;
 }

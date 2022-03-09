@@ -10,8 +10,12 @@ button {
  * header
  *************/
 .header-logo {
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 40px;
+  font-family: 'Righteous', cursive;
+}
+.header-logo > img {
+  width: 40px;
+  margin-left: 6px;
 }
 /************ 
  * footer
