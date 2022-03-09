@@ -62,6 +62,10 @@ button {
   position: relative;
   right: 5px;
 }
+.btn-logout {
+  margin-top: 3px;
+  padding: 0px 10px;
+}
 
 @keyframes motion {
   0% {
@@ -76,7 +80,6 @@ button {
  *************/
 .footer__wrap {
   background-color: #ccc;
-  margin-top: 30px;
 }
 .footerFont {
   margin-bottom: 0 !important;
