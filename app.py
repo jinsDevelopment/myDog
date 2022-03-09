@@ -1,34 +1,27 @@
+from pymongo import MongoClient
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for
-
-app = Flask(__name__)
-
-from pymongo import MongoClient
-
-# client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# db = client.dblewigolski
-
-from pymongo import MongoClient
+from python.board import board
+import jwt
+import datetime
+import hashlib
 import certifi
 mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
 client = MongoClient(mongo_connect,tlsCAFile=certifi.where())
 db = client.dbIntroDog
 
+app = Flask(__name__)
+app.register_blueprint(board)
 
-user = list(db.user.find({}, {'_id': False}))
-print(user)
+# @app.route('/')
+# def home():
+#     return render_template('index.html')
 
+@app.route('/community')
+def community():
+    return render_template('community.html')
 
-# resp = db.dog.distinct("id")
-# print(resp)
 
 SECRET_KEY = 'SPARTA'
-
-import jwt
-
-import datetime
-
-import hashlib
-
 
 #################################
 ##  HTML을 주는 부분             ##
@@ -47,6 +40,10 @@ def home():
             return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
         except jwt.exceptions.DecodeError:
             return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
+
+
+
 
 
 @app.route('/boardList')
@@ -97,8 +94,7 @@ def bucket_get():
 #################################
 
 # [회원가입 API]
-# id, pw, nickname을 받아서, mongoDB에 저장합니다.
-# 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
+
 @app.route('/api/join', methods=['POST'])
 def api_join():
     email_receive = request.form['email']
@@ -132,7 +128,7 @@ def check_dup():
 
 
 # [로그인 API]
-# id, pw를 받아서 맞춰보고, 토큰을 만들어 발급합니다.
+
 @app.route('/api/login', methods=['POST'])
 def api_login():
     id_receive = request.form['id']
@@ -164,8 +160,35 @@ def api_login():
 
 
 
+import certifi
+mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
+clientT = MongoClient(mongo_connect,tlsCAFile=certifi.where())
+dbT = clientT.dbIntroDog
 
 
+#############################
+# 반려견 종류 정보 가져오기
+@app.route("/getDogList", methods=["GET"])
+def getDogList():
+    dog_list = list(dbT.dog.find({ 'id': { '$ne': '00'}}, {'_id': False}))
+    dogimg_list = list(dbT.dogimg.find({},{'_id': False}))
+    
+    return jsonify({'dogList': dog_list, 'dogimgList': dogimg_list})
 
+############################
+# 메인에서 검색하기
+@app.route('/api/search', methods=['POST'])
+def search():
+  receive_keywords = request.form["give_keyword"]
+  print(receive_keywords)
+  search_dog = list(dbT.dog.find({'name': {'$regex': '.*' + receive_keywords + '.*'}},{'_id': False}))
+  dogimg_list = list(dbT.dogimg.find({},{'_id': False}))
+  
+  return jsonify({'search_dog': search_dog, 'dogimgList': dogimg_list, 'receive_keywords':receive_keywords})
+
+
+##############################################
+# 실행 파일
+##############################################
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=2000, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True)

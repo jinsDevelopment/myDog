@@ -1,47 +1,116 @@
-<!doctype html>
-<html lang="en">
-<head>
+{% extends 'layout.html' %} {% block content %}
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-12 col-lg-6">
+      <img
+        src="../static/img/banner-dog.png"
+        class="d-block mx-lg-auto img-fluid"
+        alt="Bootstrap Themes"
+        width="700"
+        height="500"
+        loading="lazy"
+      />
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold lh-1 mb-5 banner__title">
+        Intro<span>Dog</span>? 🐕
+      </h1>
+      <p class="lead">
+        "IntroDog" 은 애견인들의 의견을 교류할 수 있는 사이트입니다.<br />
+        반려견을 키우면서 생기는 질문, 일상 등 사소한 것까지 다른 이들과 함께
+        교류할 수 있습니다!
+      </p>
+      <div class="search__bar--wrap">
+        <form class="col-8 col-lg-auto mb-3 mb-lg-0 search__bar">
+          <input
+            id="input_kw"
+            type="text"
+            class="form-control"
+            placeholder="궁금한 반려견의 종류를 검색해 주세요!"
+            aria-label="Search"
+          />
+          <button type="button" class="btn btn-secondary btn-search">
+            검색
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Webpage Title -->
-    <title>Hello, world!</title>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <div class="modal-body">
+        <img src="" id="modal-img" alt="" />
+        <div class="modal-desc"></div>
+        <!-- 강아지의 설명이 들어갑니다 -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Bulma CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<!-- // Modal -->
 
+<!-- Thumbnail -->
 
-    <script>
-        // 로그아웃은 내가 가지고 있는 토큰만 쿠키에서 없애면 됩니다.
-        function logout() {
-            $.removeCookie('mytoken');
-            alert('로그아웃!')
-            window.location.href = '/login'
-        }
+<main class="album__wrap">
+  <div class="album py-5">
+    <div class="container clearFix">
+      <div id="thumbnail-box" class="columns-masonry">
+        <!-- temp_html이 들어가는 장소 -->
+      </div>
+    </div>
+  </div>
+</main>
+<!-- // Thumbnail -->
 
-        function boardList() {
-            window.location.href = '/boardList'
-        }
+<!-- 재혁님 작업 -->
 
-        function write_page(){
-            window.location.href = '/write'
-        }
+<button
+  class="btn btn-secondary"
+  style="margin-left: 5px"
+  onclick="window.location.href ='/board/write'"
+>
+  글쓰기
+</button>
+<button
+  class="btn btn-secondary"
+  style="margin-left: 5px"
+  onclick="window.location.href ='/board/select'"
+>
+  게시글 목록
+</button>
 
-    </script>
-
-</head>
-<body>
-<p>
-<h1 class="title">인덱스 페이지입니다</h1>
-</p>
 <h5 class="subtitle">나의 닉네임은: {{ nickname }}</h5>
 <button class="button is-danger" onclick="logout()">로그아웃하기</button>
 <button class="button is-danger" onclick="boardList()">보드로 이동</button>
-<button class="button is-danger" onclick = "write_page()">글쓰기 페이지로 이동</button>
-</body>
-</html>
+<button class="button is-danger" onclick="write_page()">
+  글쓰기 페이지로 이동
+</button>
+<!-- //재혁님 작업 -->
+<script src="../static/js/main.js"></script>
+<script src="../static/js/search.js"></script>
+{% endblock %}

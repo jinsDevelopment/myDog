@@ -1,0 +1,98 @@
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+  box-sizing: border-box;
+}
+button {
+  all: unset;
+  padding: 0;
+}
+.blind {
+  position: absolute;
+  overflow: hidden;
+  visibility: hidden;
+  margin: -1px;
+  width: 0px;
+  height: 0px;
+  top: -9999px;
+  font-size: 0;
+}
+/************ 
+ * header
+ *************/
+
+.header-logo {
+  font-size: 40px;
+  font-family: 'Righteous', cursive;
+}
+.header-logo > img {
+  width: 40px;
+  margin-left: 6px;
+}
+.community__wrap {
+  position: relative;
+}
+.invite__box {
+  position: absolute;
+  text-align: center;
+  letter-spacing: -0.08em;
+  line-height: 18px;
+  top: -5px;
+  left: -180px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 40px;
+  padding: 10px;
+  animation: motion 0.4s linear 0s infinite alternate;
+  width: 160px;
+  z-index: 100;
+}
+/* .wrap {text-align: center; margin-top: 20px;} */
+
+@keyframes motion {
+  0% {
+    left: -165px;
+  }
+  100% {
+    left: -155px;
+  }
+}
+/************ 
+ * footer
+ *************/
+.footer__wrap {
+  background-color: #ccc;
+  margin-top: 30px;
+}
+.footerFont {
+  margin-bottom: 0 !important;
+  background-color: #ccc;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+/************ 
+ * topBtn
+ *************/
+.top__btn {
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  border-radius: 30px;
+  background-color: #5f3a17;
+  color: #ddd;
+  font-weight: 700;
+  font-size: 15px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
+.top__btn:hover,
+.top__btn:active {
+  background-color: #301d0b;
+}
+
+/* * {
+  font-family: 'Jua', sans-serif;
+}
