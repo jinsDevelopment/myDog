@@ -29,33 +29,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <!-- css -->
-        <!-- css -->
+
         <link rel=stylesheet type=text/css href="{{ url_for('static',
         filename='css/join.css') }}">
-        <script>
-            // 간단한 회원가입 함수입니다.
-            // 아이디, 비밀번호, 닉네임을 받아 DB에 저장합니다.
-            function register() {
-                $.ajax({
-                    type: "POST",
-                    url: "/api/join",
-                    data: {
-                        id: $("#userid").val(),
-                        pw: $("#userpw").val(),
-                        nickname: $("#usernick").val(),
-                        dogCode: $("#dogtype").val(),
-                    },
-                    success: function (response) {
-                        if (response["result"] == "success") {
-                            alert("회원가입이 완료되었습니다.");
-                            window.location.href = "/login";
-                        } else {
-                            alert(response["msg"]);
-                        }
-                    },
-                });
-            }
-        </script>
     </head>
     <body>
         <section class="hero is-warning">
@@ -67,6 +43,7 @@
         <div class="section">
             <div class="container">
                 <h1 class="title">Sign-up to IntroDog</h1>
+
                 <div class="field is-horizontal">
                     <div class="field-body">
                         <div class="field">
@@ -74,17 +51,51 @@
                                 <input
                                     type="text"
                                     class="input"
-                                    id="userid"
-                                    aria-describedby="emailHelp"
+                                    id="useremail"
                                     placeholder="Email"
+                                    onkeyup="check_email()"
                                 />
                                 <span class="icon is-small is-left">
-                                    <i class="fas fa-envelope"></i>
+                                    <i class="bx bx-user"></i>
+                                </span>
+                                <span class="icon is-small is-right">
+                                    <i class="fas fa-check email-confirm"></i>
                                 </span>
                             </div>
+                            <p class="register-desc email-text-msg">
+                                이메일 형식이 아닙니다
+                            </p>
                         </div>
                     </div>
                 </div>
+
+                <div class="test field is-grouped">
+                    <p
+                        class="control is-expanded has-icons-left has-icons-right"
+                    >
+                        <input
+                            class="input"
+                            type="text"
+                            id="userid"
+                            placeholder="ID"
+                            disabled
+                            onkeyup="check_id()"
+                        />
+                        <span class="icon is-small is-left">
+                            <i id="id_confirm" class="bx bx-user"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-check id-confirm-icon"></i>
+                        </span>
+                    </p>
+                    <button onclick="checkdup()" id="check-dup">
+                        중복확인
+                    </button>
+                </div>
+                <p class="register-desc id-text-msg">
+                    영문과 숫자, 일부 특수문자(._-)만 사용 가능, 2-10자 길이.
+                    영문 무조건 포함
+                </p>
 
                 <div class="field is-horizontal">
                     <div class="field-body">
@@ -95,13 +106,15 @@
                                     class="input"
                                     id="usernick"
                                     placeholder="닉네임"
+                                    disabled
+                                    onkeyup="check_nick()"
                                 />
                                 <span class="icon is-small is-left">
                                     <i class="bx bx-user"></i>
                                 </span>
                             </div>
-                            <p class="register-desc">
-                                닉네임은 2-10자의 영문과 숫자만 입력 가능합니다.
+                            <p class="register-desc nick-text-msg">
+                                닉네임을 입력해주세요
                             </p>
                         </div>
                     </div>
@@ -115,12 +128,14 @@
                                     class="input"
                                     id="userpw"
                                     placeholder="Password"
+                                    onkeyup="check_pw()"
+                                    disabled
                                 />
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
                             </div>
-                            <p class="register-desc">
+                            <p class="register-desc pw-text-msg">
                                 영문과 숫자 조합의 8-20자의 비밀번호를
                                 설정해주세요.특수문자(!@#$%^&*)도 사용
                                 가능합니다.
@@ -137,63 +152,37 @@
                                     class="input"
                                     id="pwconfirm"
                                     placeholder="Password Confirm"
+                                    disabled
+                                    onkeyup="confirm_pw()"
                                 />
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
                             </div>
-                            <p class="register-desc">
-                                비밀번호를 다시 한 번 입력해주세요.
+                            <p class="register-desc pw-confirm-text-msg">
+                                비밀번호가 틀립니다
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="field">
-                    <div class="control has-icons-left">
-                        <div class="select">
-                            <select id="dogtype" class="dog-select">
-                                <option selected>내 강아지</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                                <option>종류</option>
-                            </select>
-                        </div>
-                        <span class="icon is-left"> 🐶 </span>
-                        <p class="register-desc">
-                            강아지 종류를 선택해 주세요.
-                        </p>
+                <div class="multi-selector">
+                    <div class="select-field">
+                        <span class="down-arrow1">🐶</span>
+                        <p>당신의 강아지는 무엇입니까?</p>
+                        <span class="down-arrow">&blacktriangledown;</span>
                     </div>
+                    <!---------List of checkboxes and options----------->
+                    <div id="checkboxgroup" class="list"></div>
                 </div>
+                <p class="show-list"></p>
 
-                <button class="button is-primary" onclick="register()">
+                <button class="button is-primary" onclick="join()">
                     회원가입
                 </button>
             </div>
         </div>
+
+        <!-- script -->
+        <script src="{{ url_for('static', filename='js/join.js') }}"></script>
     </body>
 </html>

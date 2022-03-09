@@ -6,6 +6,16 @@ button {
   all: unset;
   padding: 0;
 }
+.blind {
+  position: absolute;
+  overflow: hidden;
+  visibility: hidden;
+  margin: -1px;
+  width: 0px;
+  height: 0px;
+  top: -9999px;
+  font-size: 0;
+}
 /************ 
  * header
  *************/
@@ -31,6 +41,27 @@ button {
 
 .form-group {
   margin-bottom: 10px;
+}
+
+/************ 
+ * topBtn
+ *************/
+.top__btn {
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  border-radius: 30px;
+  background-color: #5f3a17;
+  color: #ddd;
+  font-weight: 700;
+  font-size: 15px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
+.top__btn:hover,
+.top__btn:active {
+  background-color: #301d0b;
 }
 
 /* * {

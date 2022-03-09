@@ -12,14 +12,13 @@ db = client.dbIntroDog
 app = Flask(__name__)
 app.register_blueprint(board)
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+# @app.route('/')
+# def home():
+#     return render_template('index.html')
 
 @app.route('/community')
 def community():
     return render_template('community.html')
-
 
 
 SECRET_KEY = 'SPARTA'
@@ -69,6 +68,7 @@ def write():
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
+
 @app.route('/login')
 def login():
     msg = request.args.get("msg")
@@ -76,7 +76,7 @@ def login():
 
 
 @app.route('/join')
-def register():
+def join():
     return render_template('join.html')
 
 ####### 데이터베이스에서 dog id랑 name 값 받아서 체크박스에 append시키기 ########
@@ -93,17 +93,35 @@ def bucket_get():
 # [회원가입 API]
 
 @app.route('/api/join', methods=['POST'])
-def api_register():
+def api_join():
+    email_receive = request.form['email']
     id_receive = request.form['id']
     pw_receive = request.form['pw']
     nickname_receive = request.form['nickname']
-    dogCode_receive = request.form['dogCode']
+    dogCode_receive = request.form['dogCode'].split(",")
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user.insert_one({'id': id_receive, 'password': pw_hash, 'nickname': nickname_receive, 'dogCode':dogCode_receive})
+    doc = {
+        "email": email_receive, 
+        "id": id_receive,
+        "password": pw_hash,  
+        "nickname": nickname_receive,
+        "dogId": dogCode_receive,
+    }
+
+    db.user.insert_one(doc)
 
     return jsonify({'result': 'success'})
+
+
+@app.route('/api/check_dup', methods=['POST'])
+def check_dup():
+    id_receive = request.form["id"]
+
+    exists = bool(db.user.find_one({"id": id_receive}))
+
+    return jsonify({'exists': exists})
 
 
 # [로그인 API]
