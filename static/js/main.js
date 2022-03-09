@@ -45,7 +45,7 @@ window.addEventListener('load', () => {
                               alt="${name}"
                             />
                             <div class="card-body">
-                              <p class="thunmbnail__title card-text">${name}</p>
+                              <p class="thunmbnail__title">${name}</p>
                             </div>
                           </div>
                         </div>
@@ -78,7 +78,7 @@ window.addEventListener('load', () => {
     const modalImg = document.getElementById('modal-img');
     const modalBody = document.querySelector('.modal-desc');
 
-    modalTitle.textContent = recipient;
+    modalTitle.textContent = recipient + ' 🐶';
     modalImg.src = img;
     modalBody.textContent = desc;
   });

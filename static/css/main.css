@@ -11,6 +11,9 @@ body {
   color: #ac784b;
   letter-spacing: -0.05em;
 }
+.banner__title > span {
+  color: #9b6231;
+}
 .lead {
   padding-bottom: 20px;
 }
@@ -31,6 +34,9 @@ body {
 /**********************************
  * Thumbnail
  ************************************/
+.album__wrap {
+  background-color: #efe9da;
+}
 .columns-masonry {
   display: inline-block;
   margin: 0;
@@ -47,6 +53,7 @@ body {
 .thunmbnail__title {
   text-align: center;
   font-size: 18px;
+  font-weight: 500;
 }
 .card-body {
   padding: 0.8rem 0.8rem;
@@ -61,6 +68,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
 }
 #modal-img {
   margin: 0 auto;
