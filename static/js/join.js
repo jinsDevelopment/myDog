@@ -81,7 +81,6 @@ function join() {
     // }
     // if (jQuery.isEmptyObject(enabledSettings) == true) {
     //     $(".dog-text-msg").show();
-    //     alert("강아지 정보를 입력해주세요!");
     // }
 }
 
@@ -233,7 +232,6 @@ function checkbox_append() {
                         .map((i) => i.value); // Use Array.map to extract only the checkbox values from the array of objects.
 
                     console.log(enabledSettings);
-                    $(".dog-text-msg").hide();
                     if ($("input[value='00']").prop("checked") == true) {
                         while (enabledSettings.length > 0) {
                             enabledSettings.pop();
@@ -292,14 +290,11 @@ function onlyOneCheckBox() {
                     if (i <= 9) {
                         let num = "0" + i;
                         $("input[value=" + num + "]").attr("disabled", true);
-                        $(".dog-text-msg").hide();
                     } else {
                         let num = i;
                         $("input[value=" + num + "]").attr("disabled", true);
-                        $(".dog-text-msg").hide();
                     }
                 }
-
                 if ($("input[value='00']").prop("checked") == false) {
                     let mybox = $("input:checkbox").length;
                     for (let i = 1; i < mybox; i++) {
@@ -331,7 +326,6 @@ function onlyOneCheckBox() {
                             );
                             this.checked = false;
                         }
-                        $(".dog-text-msg").show();
                     }
                 }
             }

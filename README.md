@@ -4,43 +4,43 @@
 
 ## MONGO DB 설계
 
-- user
+-   user
 
-  - id(유저아이디) - PK
-  - password(비밀번호)
-  - nickname(닉네임)
-  - email(이메일)
-  - dogId(강아지코드)
-  - profileImg(프로필사진)
+    -   id(유저아이디) - PK
+    -   password(비밀번호)
+    -   nickname(닉네임)
+    -   email(이메일)
+    -   dogId(강아지코드)
+    -   profileImg(프로필사진)
 
-- dog
+-   dog
 
-  - id(강아지코드) - PK
-  - name(강아지명)
-  - desc(강아지설명)
+    -   id(강아지코드) - PK
+    -   name(강아지명)
+    -   desc(강아지설명)
 
-- dogimg
+-   dogimg
 
-  - dogId(강아지코드)
-  - seqNo(일련번호)
-  - imgUrl(이미지경로)
+    -   dogId(강아지코드)
+    -   seqNo(일련번호)
+    -   imgUrl(이미지경로)
 
-- board
+-   board
 
-  - id(게시글의 아이디) - PK
-  - userId(유저의 아이디)
-  - title(게시글제목)
-  - contents(게시글내용)
-  - imgUrl(게시글이미지)
-  - createTime(게시글작성시간)
-  - updateTime(게시글수정시간)
+    -   id(게시글의 아이디) - PK
+    -   userId(유저의 아이디)
+    -   title(게시글제목)
+    -   contents(게시글내용)
+    -   imgUrl(게시글이미지)
+    -   createTime(게시글작성시간)
+    -   updateTime(게시글수정시간)
 
-- reply
-  - boardId(게시글의 아이디)
-  - userId(유저의 아이디)
-  - seqNo(일련번호)
-  - contents(댓글내용)
-  - createTime(댓글작성시간)
+-   reply
+    -   boardId(게시글의 아이디)
+    -   userId(유저의 아이디)
+    -   seqNo(일련번호)
+    -   contents(댓글내용)
+    -   createTime(댓글작성시간)
 
 ## API 설계
 
@@ -76,11 +76,11 @@
 
 ## 데이터 베이스에 저장될 key 명칭
 
-- USER
-  - id(아이디)
-  - password(비밀번호)
-  - password(비밀번호)
-  - nickname(닉네임)
-  - email(이메일)
-  - dogId(강아지코드)
-  - profileUrl(프로필사진)
+-   USER
+    -   id(아이디)
+    -   password(비밀번호)
+    -   password(비밀번호)
+    -   nickname(닉네임)
+    -   email(이메일)
+    -   dogId(강아지코드)
+    -   profileUrl(프로필사진)
