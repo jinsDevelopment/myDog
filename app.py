@@ -167,7 +167,7 @@ clientT = MongoClient(mongo_connect,tlsCAFile=certifi.where())
 dbT = clientT.dbIntroDog
 
 
-#####################################################
+#############################
 # 반려견 종류 정보 가져오기
 @app.route("/getDogList", methods=["GET"])
 def getDogList():
@@ -176,5 +176,20 @@ def getDogList():
     
     return jsonify({'dogList': dog_list, 'dogimgList': dogimg_list})
 
+############################
+# 메인에서 검색하기
+@app.route('/api/search', methods=['POST'])
+def search():
+  receive_keywords = request.form["give_keyword"]
+  print(receive_keywords)
+  search_dog = list(dbT.dog.find({'name': {'$regex': '.*' + receive_keywords + '.*'}},{'_id': False}))
+  dogimg_list = list(dbT.dogimg.find({},{'_id': False}))
+  
+  return jsonify({'search_dog': search_dog, 'dogimgList': dogimg_list, 'receive_keywords':receive_keywords})
+
+
+##############################################
+# 실행 파일
+##############################################
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
