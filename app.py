@@ -1,16 +1,19 @@
 from pymongo import MongoClient
-from flask import Flask, render_template, jsonify, request, session, redirect, url_for
+from flask import Flask, render_template, jsonify, request, session, redirect, url_for, make_response
 from python.board import board
 import jwt
 import datetime
 import hashlib
 import certifi
+import json
+
 mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
-client = MongoClient(mongo_connect,tlsCAFile=certifi.where())
+client = MongoClient(mongo_connect, tlsCAFile=certifi.where())
 db = client.dbIntroDog
 
 app = Flask(__name__)
 app.register_blueprint(board)
+
 
 # @app.route('/')
 # def home():
@@ -23,27 +26,52 @@ def community():
 
 SECRET_KEY = 'SPARTA'
 
+
+def auth_token(page):
+    token_receive = request.cookies.get('mytoken')
+    if page == 'index.html':
+        if token_receive is None:
+            return render_template('index.html')
+        else:
+            try:
+                payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+                user_info = db.user.find_one({"id": payload['id']})
+                return render_template(f'{page}', userId=user_info["id"], nickname=user_info["nickname"])
+            except jwt.ExpiredSignatureError:
+                return render_template(f'{page}')
+            except jwt.exceptions.DecodeError:
+                return render_template(f'{page}')
+
+    else:
+        if token_receive is None:
+            return make_response(redirect(url_for("login", errorCode="0")))
+        else:
+            try:
+                payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+                user_info = db.user.find_one({"id": payload['id']})
+
+                user_data = {
+                    'userId': user_info['id'],
+                    'nickname': user_info['nickname']
+                }
+                response = app.response_class(
+                    response=json.dumps(user_data),
+                    mimetype='application/json'
+                )
+                return response
+            except jwt.ExpiredSignatureError:
+                return make_response(redirect(url_for("login", errorCode="1")))
+
+            except jwt.exceptions.DecodeError:
+                return make_response(redirect(url_for("login", errorCode="2")))
+
+
 #################################
 ##  HTML을 주는 부분             ##
 #################################
 @app.route('/')
 def home():
-    token_receive = request.cookies.get('mytoken')
-    if token_receive is None:
-        return render_template('index.html')
-    else:
-        try:
-            payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-            user_info = db.user.find_one({"id": payload['id']})
-            return render_template('index.html', nickname=user_info["nickname"])
-        except jwt.ExpiredSignatureError:
-            return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
-        except jwt.exceptions.DecodeError:
-            return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
-
-
-
-
+    return auth_token('index.html')
 
 
 @app.route('/boardList')
@@ -58,6 +86,7 @@ def board_list():
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
+
 @app.route('/write')
 def write():
     token_receive = request.cookies.get('mytoken')
@@ -71,16 +100,25 @@ def write():
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
 
-
 @app.route('/login')
 def login():
-    msg = request.args.get("msg")
-    return render_template('login.html', msg=msg)
+    code = request.args.get("errorCode")
+
+    errorMsg = ""
+    if code == "0":
+        errorMsg = "로그인을 해주세요"
+    elif code == "1":
+        errorMsg = "로그인 시간이 만료되었습니다.";
+    elif code == "2":
+        errorMsg = "로그인 정보가 존재하지 않습니다.";
+
+    return render_template('login.html', msg=errorMsg)
 
 
 @app.route('/join')
 def join():
     return render_template('join.html')
+
 
 ####### 데이터베이스에서 dog id랑 name 값 받아서 체크박스에 append시키기 ########
 @app.route("/dog/list", methods=["GET"])
@@ -129,9 +167,9 @@ def api_join():
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
     doc = {
-        "email": email_receive, 
+        "email": email_receive,
         "id": id_receive,
-        "password": pw_hash,  
+        "password": pw_hash,
         "nickname": nickname_receive,
         "dogId": dogCode_receive,
         'imgUrl': imgUrl,
@@ -152,7 +190,6 @@ def check_dup():
 
 
 # [로그인 API]
-
 @app.route('/api/login', methods=['POST'])
 def api_login():
     id_receive = request.form['id']
@@ -172,7 +209,7 @@ def api_login():
         # exp에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
@@ -191,21 +228,22 @@ def api_login():
 # 반려견 종류 정보 가져오기
 @app.route("/getDogList", methods=["GET"])
 def getDogList():
-    dog_list = list(dbT.dog.find({ 'id': { '$ne': '00'}}, {'_id': False}))
-    dogimg_list = list(dbT.dogimg.find({},{'_id': False}))
-    
+    dog_list = list(db.dog.find({'id': {'$ne': '00'}}, {'_id': False}))
+    dogimg_list = list(db.dogimg.find({}, {'_id': False}))
+
     return jsonify({'dogList': dog_list, 'dogimgList': dogimg_list})
+
 
 ############################
 # 메인에서 검색하기
 @app.route('/api/search', methods=['POST'])
 def search():
-  receive_keywords = request.form["give_keyword"]
-  print(receive_keywords)
-  search_dog = list(dbT.dog.find({'name': {'$regex': '.*' + receive_keywords + '.*'}},{'_id': False}))
-  dogimg_list = list(dbT.dogimg.find({},{'_id': False}))
-  
-  return jsonify({'search_dog': search_dog, 'dogimgList': dogimg_list, 'receive_keywords':receive_keywords})
+    receive_keywords = request.form["give_keyword"]
+    print(receive_keywords)
+    search_dog = list(db.dog.find({'name': {'$regex': '.*' + receive_keywords + '.*'}}, {'_id': False}))
+    dogimg_list = list(db.dogimg.find({}, {'_id': False}))
+
+    return jsonify({'search_dog': search_dog, 'dogimgList': dogimg_list, 'receive_keywords': receive_keywords})
 
 
 ##############################################

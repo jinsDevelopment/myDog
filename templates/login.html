@@ -42,6 +42,14 @@
         filename='css/login.css') }}">
         <!-- script -->
         <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+        <script>
+            $(document).ready(function () {
+                if ("{{ msg }}" != "") {
+                    alert("{{ msg }}");
+                }
+            });
+        </script>
     </head>
     <body>
         <section class="hero is-warning">
@@ -65,10 +73,10 @@
                                         class="input"
                                         id="userid"
                                         aria-describedby="emailHelp"
-                                        placeholder="ID"
+                                        placeholder="Email"
                                     />
                                     <span class="icon is-small is-left">
-                                        <i class="fas fa-user-alt"></i>
+                                        <i class="fas fa-envelope"></i>
                                     </span>
                                 </p>
                             </div>
