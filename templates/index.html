@@ -87,30 +87,6 @@
 </main>
 <!-- // Thumbnail -->
 
-<!-- 재혁님 작업 -->
-
-<button
-  class="btn btn-secondary"
-  style="margin-left: 5px"
-  onclick="window.location.href ='/board/write'"
->
-  글쓰기
-</button>
-<button
-  class="btn btn-secondary"
-  style="margin-left: 5px"
-  onclick="window.location.href ='/board/select'"
->
-  게시글 목록
-</button>
-
-<h5 class="subtitle">나의 닉네임은: {{ nickname }}</h5>
-<button class="button is-danger" onclick="logout()">로그아웃하기</button>
-<button class="button is-danger" onclick="boardList()">보드로 이동</button>
-<button class="button is-danger" onclick="write_page()">
-  글쓰기 페이지로 이동
-</button>
-<!-- //재혁님 작업 -->
 <script src="../static/js/main.js"></script>
 <script src="../static/js/search.js"></script>
 {% endblock %}

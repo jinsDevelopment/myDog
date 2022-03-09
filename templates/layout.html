@@ -132,14 +132,26 @@
         </a>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li class="community__wrap">
+            {% if nickname == null %}
             <div class="invite__box">
               <div>우리 함께 소통해요<br />🙋‍♀️🙋</div>
             </div>
-            <a href="/community" class="nav-link px-2 link-dark">COMMUNITY</a>
+            {% endif %}
+            <a
+              onclick="window.location.href ='/board/select'"
+              class="nav-link px-2 link-dark layout__nav"
+              >COMMUNITY</a
+            >
           </li>
         </ul>
 
         <div class="text-end">
+          {% if nickname %}
+          <p>안녕하세요 {{ nickname }}님 반갑습니다 😀</p>
+          <button class="button is-danger btn-logout" onclick="logout()">
+            로그아웃하기
+          </button>
+          {% else %}
           <button
             type="button"
             class="btn btn-outline-secondary me-2"
@@ -150,6 +162,7 @@
           <button type="button" class="btn btn-secondary" onclick="goJoin()">
             Sign-up
           </button>
+          {% endif %}
         </div>
       </header>
     </div>
@@ -160,9 +173,9 @@
     <!-- // topBtn -->
 
     <!-- footer -->
-    <div class="footer__wrap">
+    <div class="footer__wrap footerFont">
       <footer class="py-4">
-        <p class="text-center footerFont">© 2022 TEAM, MYDOG</p>
+        <p class="text-center">© 2022 TEAM, MYDOG</p>
       </footer>
     </div>
     <!-- //footer -->
