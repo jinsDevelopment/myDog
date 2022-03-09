@@ -1,6 +1,9 @@
 /* *************
 * board
 *****************/
+.board-wrap {
+  padding: 0 20px !important;
+}
 .board-header {
   display: flex;
   justify-content: space-between;
@@ -9,6 +12,13 @@
   font-size: 30px;
   letter-spacing: -0.04em;
   color: #333;
+}
+.btn-write {
+  white-space: nowrap;
+  max-height: 45px;
+}
+.board-album-wrap {
+  margin-bottom: 40px;
 }
 /* *************
 * board_write
@@ -45,5 +55,4 @@
 
 .wrap {
   min-height: 100vh;
-  padding-bottom: 50px;
 }

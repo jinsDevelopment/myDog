@@ -93,14 +93,12 @@ button {
 .footer__wrap {
   background-color: #ccc;
 }
-.footerFont {
+/* .footerFont {
   margin-bottom: 0 !important;
   background-color: #ccc;
-}
+} */
 
-.form-group {
-  margin-bottom: 10px;
-}
+
 
 /************ 
  * topBtn
