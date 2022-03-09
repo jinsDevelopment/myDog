@@ -20,22 +20,6 @@ app.register_blueprint(board)
 def community():
     return render_template('community.html')
 
-# client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# db = client.dblewigolski
-
-from pymongo import MongoClient
-import certifi
-mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
-client = MongoClient(mongo_connect,tlsCAFile=certifi.where())
-db = client.dbIntroDog
-
-
-user = list(db.user.find({}, {'_id': False}))
-print(user)
-
-
-# resp = db.dog.distinct("id")
-# print(resp)
 
 SECRET_KEY = 'SPARTA'
 
@@ -56,6 +40,8 @@ def home():
             return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
         except jwt.exceptions.DecodeError:
             return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
+
 
 @app.route('/boardList')
 def board_list():
@@ -105,8 +91,7 @@ def bucket_get():
 #################################
 
 # [회원가입 API]
-# id, pw, nickname을 받아서, mongoDB에 저장합니다.
-# 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
+
 @app.route('/api/join', methods=['POST'])
 def api_join():
     email_receive = request.form['email']
@@ -140,7 +125,7 @@ def check_dup():
 
 
 # [로그인 API]
-# id, pw를 받아서 맞춰보고, 토큰을 만들어 발급합니다.
+
 @app.route('/api/login', methods=['POST'])
 def api_login():
     id_receive = request.form['id']
