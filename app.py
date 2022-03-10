@@ -32,7 +32,7 @@ def auth_token(page):
             try:
                 payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
                 user_info = db.user.find_one({"id": payload['id']})
-                return render_template(f'{page}', user_Id=user_info["id"], nickname=user_info["nickname"])
+                return render_template(f'{page}', user_id=user_info["id"], nickname=user_info["nickname"])
             except jwt.ExpiredSignatureError:
                 return render_template(f'{page}')
             except jwt.exceptions.DecodeError:
