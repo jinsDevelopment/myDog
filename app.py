@@ -124,7 +124,7 @@ def api_join():
 
         imgUrl = f'{filename}.{extension}'
     else:
-        imgUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+        imgUrl = "blank_profile.png"
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
@@ -467,4 +467,4 @@ def reply_delete():
 ##############################################
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5007, debug=True)
