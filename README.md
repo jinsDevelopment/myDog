@@ -82,7 +82,6 @@
 <img src="https://img.shields.io/badge/Bulma-8c00ff?style=for-the-badge&logoColor=white">
 <img src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens">
 <img src="https://img.shields.io/badge/Jinja-7952B3?style=for-the-badge&logo=Jinja&logoColor=white">
-<img src="https://img.shields.io/badge/Gsap-0000ff?style=for-the-badge&logo=Gsap&logoColor=white">
 <img src="https://img.shields.io/badge/Flask-00ffff?style=for-the-badge&logo=Flask&logoColor=black">
 
 </p>
@@ -208,6 +207,6 @@
   
   
 ## 📝 후기 📝
-<code>이주화</code>
+<code>이주환</code>
 <code>이진서</code>
 <code>김재혁</code>
