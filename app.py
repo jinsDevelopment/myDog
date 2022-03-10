@@ -9,12 +9,10 @@ mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?r
 client = MongoClient(mongo_connect, tlsCAFile=certifi.where())
 db = client.dbIntroDog
 
-
 app = Flask(__name__)
 
 
 SECRET_KEY = 'SPARTA'
-
 
 
 def auth_token(page):
@@ -61,6 +59,7 @@ def auth_token(page):
 
 @app.route('/')
 def home():
+    
     return auth_token('index.html')
 
 @app.route('/login')
@@ -71,9 +70,9 @@ def login():
     if code == "0":
         errorMsg = "로그인을 해주세요"
     elif code == "1":
-        errorMsg = "로그인 시간이 만료되었습니다.";
+        errorMsg = "로그인 시간이 만료되었습니다."
     elif code == "2":
-        errorMsg = "로그인 정보가 존재하지 않습니다.";
+        errorMsg = "로그인 정보가 존재하지 않습니다."
 
     return render_template('login.html', msg=errorMsg)
 
@@ -224,7 +223,7 @@ def board_write():
 # 게시글 목록
 @app.route('/board/select', methods=["GET"])
 def board_list():
-
+    
     # Token 미인증시 - 상황에 맞는 errorCode 출력
     if auth_token('board_list.html').get_json() is None:
         return auth_token('board_list.html')
@@ -476,4 +475,4 @@ def reply_delete():
 ##############################################
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5007, debug=True)
+    app.run('0.0.0.0', port=5000, debug=True)

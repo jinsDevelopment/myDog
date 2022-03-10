@@ -1,7 +1,7 @@
 'use strict';
 // 재혁님 작업
 function logout() {
-  $.removeCookie('mytoken');
+  $.removeCookie('mytoken',{ path: '/' });
   alert('로그아웃!');
   window.location.href = '/login';
 }
