@@ -172,8 +172,9 @@ def api_login():
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-
-        return jsonify({'result': 'success', 'token': token})
+        user_info = db.user.find_one({"id": payload['id']})
+        nickname=user_info["nickname"]
+        return jsonify({'result': 'success', 'token': token, "nickname":nickname})
     # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
@@ -451,4 +452,4 @@ def reply_delete():
 ##############################################
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5007, debug=True)
