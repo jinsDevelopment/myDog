@@ -106,6 +106,27 @@ def api_join():
     nickname_receive = request.form['nickname']
     dogCode_receive = request.form['dogCode'].split(",")
 
+    # 현재시간 구해오기
+    now = datetime.datetime.now()
+    date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
+    imgUrl = ""
+
+    if len(request.files) != 0:
+        # 새로운 이름을 만들어주기
+        filename = f'file-{date_time}'
+
+        # 확장자를 빼내기
+        file = request.files['file']
+        extension = file.filename.split(",")[-1]
+
+        # 새로운 이름으로 저장하기
+        save_to = f'static/images/{filename}.{extension}'
+        file.save(save_to)
+
+        imgUrl = f'{filename}.{extension}'
+    else:
+        imgUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
     doc = {
@@ -114,6 +135,8 @@ def api_join():
         "password": pw_hash,
         "nickname": nickname_receive,
         "dogId": dogCode_receive,
+        'profileImg': imgUrl,
+
     }
 
     db.user.insert_one(doc)
@@ -205,11 +228,25 @@ def board_write():
 # 게시글 목록
 @app.route('/board/select', methods=["GET"])
 def board_list():
-    boardList = list(db.board.find({}, {'_id': False}))
-    for i in range(0, len(boardList), 1):
-        if boardList[i]['imgUrl'] == '':
-            boardList[i]['imgUrl'] = 'empty.jpg'
-    return render_template('board_list.html', result=boardList)
+
+    # Token 미인증시 - 상황에 맞는 errorCode 출력
+    if auth_token('board_list.html').get_json() is None:
+        return auth_token('board_list.html')
+
+    else:
+        # Token 인증시 - render_template('board_list.html'),
+        user_id = auth_token('board_list.html').get_json()['userId']
+
+        boardList = list(db.board.find({}, {'_id': False}))
+
+        for i in range(0, len(boardList), 1):
+            if boardList[i]['imgUrl'] == '':
+                boardList[i]['imgUrl'] = 'empty.jpg'
+
+        return render_template('board_list.html',result=boardList, user_id = user_id)
+
+    
+    
 
 
 # 게시글 저장
