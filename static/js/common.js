@@ -2,7 +2,7 @@
 // 재혁님 작업
 function logout() {
   $.removeCookie('mytoken',{ path: '/' });
-  alert('로그아웃!');
+  alert('정상적으로 로그아웃되었습니다.');
   window.location.href = '/login';
 }
 
