@@ -30,7 +30,7 @@
 .board-album-wrap {
   margin-bottom: 40px;
 }
-.card-info > .card-text:first-of-type {
+.card-info > .card-text:nth-of-type(2) {
   margin-bottom: 15px;
 }
 .card-info > .card-text:last-child {
