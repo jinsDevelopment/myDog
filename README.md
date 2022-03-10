@@ -204,7 +204,7 @@
 | 게시글 수정          | PUT   | /board/update     | {'id':boardId, 'contents': contents, 'title': title, 'imgUrl': imgUrl,'updateTime': now.strftime("%Y-%m-%d %H:%M:%S")}                | {msg="수정되었습니다."}                                                                                                             |
 | 게시글 삭제          | DELETE | /board/delete     | {'id':id}                                                                            | {msg="삭제되었습니다."}                                                                                                             |
 | 댓글 저장            | POST   | /board/reply/create     | {'boardId':board_Id ,'userId': user_id, 'contents': contents}                              | {msg="저장되었습니다."}                                                                                                             |
-| 댓글 삭제            | DELETE | /board/reply/delete     | {'boardId':board_id,'seqNo' : seqNo}                                
+| 댓글 삭제            | DELETE | /board/reply/delete     | {'boardId':board_id,'seqNo' : seqNo}                                                                       | {msg="삭제되었습니다."}                                                                                                             |
   
   
 ## 📝 후기 📝
