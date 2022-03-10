@@ -17,7 +17,6 @@
 - USER
   - id(아이디)
   - password(비밀번호)
-  - password(비밀번호)
   - nickname(닉네임)
   - email(이메일)
   - dogId(강아지코드)
