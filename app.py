@@ -274,6 +274,8 @@ def board_list():
         for i in range(0, len(boardList), 1):
             if boardList[i]['imgUrl'] == '':
                 boardList[i]['imgUrl'] = 'empty.jpg'
+            if len(boardList[i]['title']) >= 12:
+                boardList[i]['title'] = boardList[i]['title'][0:12]+"..."
             if len(boardList[i]['contents']) >= 20:
                 boardList[i]['contents'] = boardList[i]['contents'][0:36]+"..."
 

@@ -30,8 +30,17 @@
 .board-album-wrap {
   margin-bottom: 40px;
 }
-.card-info > .card-text:nth-of-type(2) {
+.card-info {
+  position: relative;
+}
+.card-info > .card-text:nth-of-type(1) {
   margin-bottom: 15px;
+}
+.card-info > .card-text:nth-of-type(2) {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: 500;
 }
 .card-info > .card-text:last-child {
   position: absolute;
