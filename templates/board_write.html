@@ -24,7 +24,7 @@
     form_data.append('file', file);
     form_data.append('title', title);
     form_data.append('contents', contents);
-    form_data.append('userid', 'jinseo'); //임시
+    form_data.append('userid', '{{user_id}}');
 
     $.ajax({
       type: 'POST',

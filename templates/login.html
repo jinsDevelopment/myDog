@@ -1,4 +1,11 @@
 {% extends 'layout_sub.html' %} {% block content %}
+<script>
+  $(document).ready(function () {
+    if ('{{ msg }}' != '') {
+      alert('{{ msg }}');
+    }
+  });
+</script>
 <div class="section has-text-centered">
   <div class="container container_body">
     <h1 class="title">Log-in to IntroDOG</h1>

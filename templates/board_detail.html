@@ -11,7 +11,7 @@
     form_data.append('file', file);
     form_data.append('title', title);
     form_data.append('contents', contents);
-    form_data.append('id', 'jinseo'); //임시
+    form_data.append('id', '{{user_id}}');
 
     $.ajax({
       type: 'POST',
@@ -50,7 +50,7 @@
   function reply_save() {
     let contents = $('#reply-contents').val();
     let board_id = $('#boardid').val();
-    let user_id = 'jinseo'; //임시
+    let user_id = '{{user_id}}'; //임시
 
     if (contents == '') {
       alert('댓글을 입력하세요.');
@@ -94,35 +94,31 @@
   }
 </script>
 <body>
-  <div class="wrap detail-wrap">
+  <div class="wrap">
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <div class="posting-box">
           <input hidden id="boardid" value='{{ board['id'] }}'>
           <div class="text-center">
-            <div class="form-group">
-              <label for="exampleFormControlInput1" class="blind">제목</label>
-              <input type="text" class="form-control detail-title" id="title"
-              placeholder="제목" value='{{ board['title'] }}' readonly>
-            </div>
             <img
               src="../static/images/{{ board['imgUrl'] }}"
-              class="rounded detail-img"
+              class="rounded"
               alt="..."
             />
           </div>
           <div class="form-group">
-            <label for="exampleFormControlTextarea1" class="blind">내용</label>
-            <textarea
-              class="form-control detail-body"
-              id="contents"
-              rows="3"
-              readonly
-            >
+            <label for="exampleFormControlInput1">제목</label>
+            <input type="text" class="form-control" id="title"
+            placeholder="제목" value='{{ board['title'] }}' readonly>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">내용</label>
+            <textarea class="form-control" id="contents" rows="3" readonly>
 {{ board['contents'] }}</textarea
             >
           </div>
-          <div class="form-group btn-detail-form">
+          {% if user_id == board['userId'] %}
+          <div class="form-group">
             <button
               class="btn btn-primary"
               onclick="window.location.href='/board/modify?id={{ board['id'] }}'"
@@ -133,6 +129,7 @@
               삭제
             </button>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -146,15 +143,13 @@
             rows="3"
           ></textarea>
         </div>
-        <div class="btn-detail-form">
-          <button
-            onclick="reply_save()"
-            type="button"
-            class="btn btn-outline-primary btn-comment"
-          >
-            댓글 달기
-          </button>
-        </div>
+        <button
+          onclick="reply_save()"
+          type="button"
+          class="btn btn-outline-primary"
+        >
+          댓글 달기
+        </button>
       </div>
       {% if reply %}
       <div class="posting-box">
@@ -173,11 +168,12 @@
                 <th scope="row">{{ rep['userId'] }}</th>
                 <td colspan="8">{{ rep['contents'] }}</td>
                 <td style="text-align: right">
+                  {% if user_id == rep['userId'] %}
                   <button
                     class="btn btn-primary"
                     onclick="reply_remove({{ rep['seqNo'] }})"
                   >
-                    삭제
+                    삭제 {% endif %}
                   </button>
                 </td>
               </tr>
