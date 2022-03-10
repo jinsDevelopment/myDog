@@ -132,7 +132,7 @@
         </a>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li class="community__wrap">
-            {% if user_id == null %}
+            {% if nickname == null %}
             <div class="invite__box">
               <div>우리 함께 소통해요<br />🙋‍♀️🙋</div>
             </div>
@@ -146,11 +146,21 @@
         </ul>
 
         <div class="text-end">
-          {% if user_id %}
-          <p>안녕하세요 {{ nickname }}님 반갑습니다 😀</p>
-          <button class="button is-danger btn-logout" onclick="logout()">
-            로그아웃하기
-          </button>
+          {% if nickname %}
+          <div class="hello-logout">
+            <p>안녕하세요 {{ nickname }}님 반갑습니다 😀</p>
+            <button class="button is-danger btn-logout" onclick="logout()">
+              로그아웃하기
+            </button>
+          </div>
+
+          <img
+            class="profile-img"
+            src="../static/images/{{profileImg }}"
+            alt=""
+            width="60"
+            height="55"
+          />
           {% else %}
           <button
             type="button"
@@ -162,6 +172,7 @@
           <button type="button" class="btn btn-secondary" onclick="goJoin()">
             Sign-up
           </button>
+
           {% endif %}
         </div>
       </header>
