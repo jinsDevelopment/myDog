@@ -16,6 +16,9 @@ button {
   top: -9999px;
   font-size: 0;
 }
+body {
+  overflow-x: hidden;
+}
 /************ 
  * header
  *************/
