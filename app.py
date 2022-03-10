@@ -1,33 +1,18 @@
 from pymongo import MongoClient
-<<<<<<< HEAD
-from flask import Flask, render_template, jsonify, request, redirect, url_for, make_response
-=======
 from flask import Flask, render_template, jsonify, request, session, redirect, url_for, make_response
->>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 import jwt
 import datetime
 import hashlib
 import certifi
 import json
-<<<<<<< HEAD
-
-app = Flask(__name__)
-
-=======
->>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
 client = MongoClient(mongo_connect, tlsCAFile=certifi.where())
 db = client.dbIntroDog
 # client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
 # db = client.dblewigolski
 
-<<<<<<< HEAD
-## 블루프린트 연결
-# app.register_blueprint(dog_board)
-=======
 app = Flask(__name__)
 # app.register_blueprint(board)
->>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 
 SECRET_KEY = 'SPARTA'
 
@@ -74,11 +59,6 @@ def auth_token(page):
 #################################
 ##  HTML을 주는 부분             ##
 #################################
-<<<<<<< HEAD
-@app.route('/')
-def home():
-    return auth_token('index.html')
-=======
 
 def auth_token(page):
     token_receive = request.cookies.get('mytoken')
@@ -118,7 +98,6 @@ def auth_token(page):
             except jwt.exceptions.DecodeError:
                 return make_response(redirect(url_for("login", errorCode="2")))
 
->>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 
 @app.route('/')
 def home():
@@ -232,23 +211,14 @@ def api_login():
 
         payload = {
             'id': id_receive,
-<<<<<<< HEAD
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
-=======
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
->>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
     else:
-<<<<<<< HEAD
-        return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
-
-=======
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
->>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 
 #############################
 # 반려견 종류 정보 가져오기
@@ -288,7 +258,8 @@ def board_write():
     else:
         # Token 인증시 - render_template('board_write.html'),
         user_id = auth_token('board_write.html').get_json()['userId']
-        return render_template('board_write.html', user_id = user_id)
+        nickname = auth_token('board_list.html').get_json()['nickname']
+        return render_template('board_write.html', user_id = user_id, nickname = nickname)
 
 
 # 게시글 목록
@@ -302,21 +273,17 @@ def board_list():
     else:
         # Token 인증시 - render_template('board_list.html'),
         user_id = auth_token('board_list.html').get_json()['userId']
-
+        nickname = auth_token('board_list.html').get_json()['nickname']
         boardList = list(db.board.find({}, {'_id': False}))
 
         for i in range(0, len(boardList), 1):
             if boardList[i]['imgUrl'] == '':
                 boardList[i]['imgUrl'] = 'empty.jpg'
+            if len(boardList[i]['contents']) >= 20:
+                boardList[i]['contents'] = boardList[i]['contents'][0:36]+"..."
 
-        return render_template('board_list.html',result=boardList, user_id = user_id)
+        return render_template('board_list.html',result=boardList, user_id = user_id, nickname = nickname)
 
-<<<<<<< HEAD
-    
-    
-
-=======
->>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 
 # 게시글 저장
 @app.route('/board/create', methods=["POST"])
@@ -392,8 +359,9 @@ def board_modify():
     else:
         # Token 인증시 - render_template('board_update.html'),
         user_id = auth_token('board_update.html').get_json()['userId']
+        nickname = auth_token('board_list.html').get_json()['nickname']
         board = db.board.find_one({'id': int(request.args.get('id'))}, {'_id': False})
-        return render_template('board_update.html', board = board, user_id = user_id)
+        return render_template('board_update.html', board = board, user_id = user_id, nickname = nickname)
 
 
 
@@ -404,7 +372,6 @@ def board_update():
     contents = request.form['contents']
     orgFile = request.form['orgFile']
     boardId = request.form['boardId']
-<<<<<<< HEAD
 
     board = db.board.find_one({'id': int(boardId)}, {'_id': False})
 
@@ -467,145 +434,13 @@ def board_detail():
     else:
         # Token 인증시 - render_template('board_detail.html')
         user_id = auth_token('board_detail.html').get_json()['userId']
+        nickname = auth_token('board_detail.html').get_json()['nickname']
         board = db.board.find_one({'id': int(request.args.get('id'))}, {'_id': False})
         reply_list = list(db.reply.find({'boardId': int(request.args.get('id'))}, {'_id': False}))
         if board['imgUrl'] == '':
             board['imgUrl'] = 'empty.jpg'
 
-        return render_template('board_detail.html', board=board, reply=reply_list, user_id=user_id)
-
-
-# 게시글 삭제
-@app.route('/board/delete', methods=["DELETE"])
-def board_delete():
-    db.board.delete_one({'id': int(request.form['id'])})
-    db.reply.delete_many({'boardId': int(request.form['id'])})
-    # Token인증시 - render_template('board_detail.html'),
-    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
-    return jsonify({"msg": "삭제되었습니다."})
-
-
-# 댓글 저장
-@app.route('/board/reply/create', methods=["POST"])
-def reply_create():
-    boardId = request.form['board_id']
-    contents = request.form['contents']
-    userId = request.form['user_id']
-
-    now = datetime.datetime.now()
-
-    reply_list = list(db.reply.find({'boardId': int(boardId)}, {'_id': False}))
-    lists = []
-    seqNo = 0
-    for li in reply_list:
-        lists.append(li['seqNo'])
-
-    if len(lists) == 0:
-        seqNo = 1
-    else:
-        seqNo = int(max(lists)) + 1
-
-    doc = {
-        'boardId': int(boardId),
-        'contents': contents,
-        'userId': userId,
-        'createTime': now.strftime("%Y-%m-%d %H:%M:%S"),
-        'seqNo': seqNo
-    }
-    print(doc)
-    db.reply.insert_one(doc)
-
-    # Token인증시 - render_template('board_detail.html'),
-    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
-
-    # reply
-    # - boardId(게시글의 아이디)
-    # - userId(유저의 아이디)
-    # - seqNo(일련번호)
-    # - contents(댓글내용)
-    # - createTime(댓글작성시간)
-
-    return jsonify({"msg": "저장되었습니다."})
-
-
-# 댓글 삭제
-@app.route('/board/reply/delete', methods=["DELETE"])
-def reply_delete():
-    db.reply.delete_one({'boardId': int(request.form['board_id']), 'seqNo': int(request.form['seqNo'])})
-    # Token인증시 - render_template('board_detail.html'),
-    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
-    return jsonify({"msg": "삭제되었습니다."})
-
-=======
->>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
-
-    board = db.board.find_one({'id': int(boardId)}, {'_id': False})
-
-    # 현재시간 구해오기
-    now = datetime.datetime.now()
-    date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
-
-    imgUrl = ""
-    imgChange = False
-    if board['imgUrl'] != orgFile:
-
-        if len(request.files) != 0:
-            # 새로운 이름을 만들어주기
-            filename = f'file-{date_time}'
-
-            # 확장자를 빼내기
-            file = request.files['file']
-            extension = file.filename.split(",")[-1]
-
-            # 새로운 이름으로 저장하기
-            save_to = f'static/images/{filename}.{extension}'
-            file.save(save_to)
-
-            imgUrl = f'{filename}.{extension}'
-            imgChange = True
-
-    # 변경된 사항 db 저장
-    doc = {
-        'title': title,
-        'contents': contents,
-        'imgUrl': imgUrl if imgChange else board['imgUrl'],
-        'updateTime': now.strftime("%Y-%m-%d %H:%M:%S"),
-    }
-
-    # 업데이트
-    db.board.update_one({'id': int(boardId)}, {'$set': doc})
-
-    # board
-    # - id(게시글의 아이디) - PK
-    # - userId(유저의 아이디)
-    # - title(게시글제목)
-    # - contents(게시글내용)
-    # - imgUrl(게시글이미지)
-    # - createTime(게시글작성시간)
-    # - updateTime(게시글수정시간)
-
-    # Token인증시 - render_template('board_write.html'),
-    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
-    return jsonify({"msg": "수정되었습니다."})
-
-
-# 게시글 상세
-@app.route('/board/detail', methods=["GET"])
-def board_detail():
-
-    # Token 미인증시 - 상황에 맞는 errorCode 출력
-    if auth_token('board_detail.html').get_json() is None:
-        return auth_token('board_detail.html')
-
-    else:
-        # Token 인증시 - render_template('board_detail.html')
-        user_id = auth_token('board_detail.html').get_json()['userId']
-        board = db.board.find_one({'id': int(request.args.get('id'))}, {'_id': False})
-        reply_list = list(db.reply.find({'boardId': int(request.args.get('id'))}, {'_id': False}))
-        if board['imgUrl'] == '':
-            board['imgUrl'] = 'empty.jpg'
-
-        return render_template('board_detail.html', board=board, reply=reply_list, user_id=user_id)
+        return render_template('board_detail.html', board=board, reply=reply_list, user_id=user_id, nickname = nickname)
 
 
 # 게시글 삭제
