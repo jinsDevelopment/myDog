@@ -1,19 +1,33 @@
 from pymongo import MongoClient
+<<<<<<< HEAD
 from flask import Flask, render_template, jsonify, request, redirect, url_for, make_response
+=======
+from flask import Flask, render_template, jsonify, request, session, redirect, url_for, make_response
+>>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 import jwt
 import datetime
 import hashlib
 import certifi
 import json
+<<<<<<< HEAD
 
 app = Flask(__name__)
 
+=======
+>>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
 client = MongoClient(mongo_connect, tlsCAFile=certifi.where())
 db = client.dbIntroDog
+# client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
+# db = client.dblewigolski
 
+<<<<<<< HEAD
 ## 블루프린트 연결
 # app.register_blueprint(dog_board)
+=======
+app = Flask(__name__)
+# app.register_blueprint(board)
+>>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 
 SECRET_KEY = 'SPARTA'
 
@@ -60,10 +74,55 @@ def auth_token(page):
 #################################
 ##  HTML을 주는 부분             ##
 #################################
+<<<<<<< HEAD
 @app.route('/')
 def home():
     return auth_token('index.html')
+=======
 
+def auth_token(page):
+    token_receive = request.cookies.get('mytoken')
+    if page == 'index.html':
+        if token_receive is None:
+            return render_template('index.html')
+        else:
+            try:
+                payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+                user_info = db.user.find_one({"id": payload['id']})
+                return render_template(f'{page}', user_id=user_info["id"], nickname=user_info["nickname"])
+            except jwt.ExpiredSignatureError:
+                return render_template(f'{page}')
+            except jwt.exceptions.DecodeError:
+                return render_template(f'{page}')
+
+    else:
+        if token_receive is None:
+            return make_response(redirect(url_for("login", errorCode="0")))
+        else:
+            try:
+                payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+                user_info = db.user.find_one({"id": payload['id']})
+
+                user_data = {
+                    'userId': user_info['id'],
+                    'nickname': user_info['nickname']
+                }
+                response = app.response_class(
+                    response=json.dumps(user_data),
+                    mimetype='application/json'
+                )
+                return response
+            except jwt.ExpiredSignatureError:
+                return make_response(redirect(url_for("login", errorCode="1")))
+
+            except jwt.exceptions.DecodeError:
+                return make_response(redirect(url_for("login", errorCode="2")))
+
+>>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
+
+@app.route('/')
+def home():
+    return auth_token('index.html')
 
 @app.route('/login')
 def login():
@@ -97,6 +156,12 @@ def bucket_get():
 #################################
 
 # [회원가입 API]
+
+# import datetime
+# datetime
+#
+# datetime.datetime(2001,5,1)
+# datetime.datetime(2001, 5, 1, 0, 0)
 
 @app.route('/api/join', methods=['POST'])
 def api_join():
@@ -143,7 +208,7 @@ def api_join():
 
     return jsonify({'result': 'success'})
 
-
+# 회원가입 아이디 중복확인
 @app.route('/api/check_dup', methods=['POST'])
 def check_dup():
     id_receive = request.form["id"]
@@ -156,33 +221,34 @@ def check_dup():
 # [로그인 API]
 @app.route('/api/login', methods=['POST'])
 def api_login():
-    id_receive = request.form['id']
-    pw_receive = request.form['pw']
+    id_receive = request.form['id_give']
+    pw_receive = request.form['pw_give']
 
-    # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    # id, 암호화된pw을 가지고 해당 유저를 찾습니다.
     result = db.user.find_one({'id': id_receive, 'password': pw_hash})
 
-    # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result is not None:
-        # JWT 토큰에는, payload와 시크릿키가 필요합니다.
-        # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
-        # 아래에선 id와 exp를 담았습니다. 즉, JWT 토큰을 풀면 유저ID 값을 알 수 있습니다.
-        # exp에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
+
         payload = {
             'id': id_receive,
+<<<<<<< HEAD
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+=======
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
+>>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-        # token을 줍니다.
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
     else:
+<<<<<<< HEAD
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
 
+=======
+        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
+>>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 
 #############################
 # 반려견 종류 정보 가져오기
@@ -245,9 +311,12 @@ def board_list():
 
         return render_template('board_list.html',result=boardList, user_id = user_id)
 
+<<<<<<< HEAD
     
     
 
+=======
+>>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 
 # 게시글 저장
 @app.route('/board/create', methods=["POST"])
@@ -335,6 +404,7 @@ def board_update():
     contents = request.form['contents']
     orgFile = request.form['orgFile']
     boardId = request.form['boardId']
+<<<<<<< HEAD
 
     board = db.board.find_one({'id': int(boardId)}, {'_id': False})
 
@@ -466,10 +536,142 @@ def reply_delete():
     # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
     return jsonify({"msg": "삭제되었습니다."})
 
+=======
+>>>>>>> 97432b5a945c185dee0bfd9084c6de77480746c6
 
+    board = db.board.find_one({'id': int(boardId)}, {'_id': False})
+
+    # 현재시간 구해오기
+    now = datetime.datetime.now()
+    date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
+
+    imgUrl = ""
+    imgChange = False
+    if board['imgUrl'] != orgFile:
+
+        if len(request.files) != 0:
+            # 새로운 이름을 만들어주기
+            filename = f'file-{date_time}'
+
+            # 확장자를 빼내기
+            file = request.files['file']
+            extension = file.filename.split(",")[-1]
+
+            # 새로운 이름으로 저장하기
+            save_to = f'static/images/{filename}.{extension}'
+            file.save(save_to)
+
+            imgUrl = f'{filename}.{extension}'
+            imgChange = True
+
+    # 변경된 사항 db 저장
+    doc = {
+        'title': title,
+        'contents': contents,
+        'imgUrl': imgUrl if imgChange else board['imgUrl'],
+        'updateTime': now.strftime("%Y-%m-%d %H:%M:%S"),
+    }
+
+    # 업데이트
+    db.board.update_one({'id': int(boardId)}, {'$set': doc})
+
+    # board
+    # - id(게시글의 아이디) - PK
+    # - userId(유저의 아이디)
+    # - title(게시글제목)
+    # - contents(게시글내용)
+    # - imgUrl(게시글이미지)
+    # - createTime(게시글작성시간)
+    # - updateTime(게시글수정시간)
+
+    # Token인증시 - render_template('board_write.html'),
+    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
+    return jsonify({"msg": "수정되었습니다."})
+
+
+# 게시글 상세
+@app.route('/board/detail', methods=["GET"])
+def board_detail():
+
+    # Token 미인증시 - 상황에 맞는 errorCode 출력
+    if auth_token('board_detail.html').get_json() is None:
+        return auth_token('board_detail.html')
+
+    else:
+        # Token 인증시 - render_template('board_detail.html')
+        user_id = auth_token('board_detail.html').get_json()['userId']
+        board = db.board.find_one({'id': int(request.args.get('id'))}, {'_id': False})
+        reply_list = list(db.reply.find({'boardId': int(request.args.get('id'))}, {'_id': False}))
+        if board['imgUrl'] == '':
+            board['imgUrl'] = 'empty.jpg'
+
+        return render_template('board_detail.html', board=board, reply=reply_list, user_id=user_id)
+
+
+# 게시글 삭제
+@app.route('/board/delete', methods=["DELETE"])
+def board_delete():
+    db.board.delete_one({'id': int(request.form['id'])})
+    db.reply.delete_many({'boardId': int(request.form['id'])})
+    # Token인증시 - render_template('board_detail.html'),
+    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
+    return jsonify({"msg": "삭제되었습니다."})
+
+
+# 댓글 저장
+@app.route('/board/reply/create', methods=["POST"])
+def reply_create():
+    boardId = request.form['board_id']
+    contents = request.form['contents']
+    userId = request.form['user_id']
+
+    now = datetime.datetime.now()
+
+    reply_list = list(db.reply.find({'boardId': int(boardId)}, {'_id': False}))
+    lists = []
+    seqNo = 0
+    for li in reply_list:
+        lists.append(li['seqNo'])
+
+    if len(lists) == 0:
+        seqNo = 1
+    else:
+        seqNo = int(max(lists)) + 1
+
+    doc = {
+        'boardId': int(boardId),
+        'contents': contents,
+        'userId': userId,
+        'createTime': now.strftime("%Y-%m-%d %H:%M:%S"),
+        'seqNo': seqNo
+    }
+    print(doc)
+    db.reply.insert_one(doc)
+
+    # Token인증시 - render_template('board_detail.html'),
+    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
+
+    # reply
+    # - boardId(게시글의 아이디)
+    # - userId(유저의 아이디)
+    # - seqNo(일련번호)
+    # - contents(댓글내용)
+    # - createTime(댓글작성시간)
+
+    return jsonify({"msg": "저장되었습니다."})
+
+
+# 댓글 삭제
+@app.route('/board/reply/delete', methods=["DELETE"])
+def reply_delete():
+    db.reply.delete_one({'boardId': int(request.form['board_id']), 'seqNo': int(request.form['seqNo'])})
+    # Token인증시 - render_template('board_detail.html'),
+    # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
+    return jsonify({"msg": "삭제되었습니다."})
 
 ##############################################
 # 실행 파일
 ##############################################
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

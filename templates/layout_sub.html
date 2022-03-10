@@ -112,72 +112,45 @@
     />
     <!-- CSS -->
     <link rel="stylesheet" href="../static/css/board.css" />
-    <link rel="stylesheet" href="../static/css/layout.css" />
-    <link rel="stylesheet" href="../static/css/main.css" />
+    <link rel="stylesheet" href="../static/css/layout_sub.css" />
+    <link rel="stylesheet" href="../static/css/login.css" />
     <!-- JS -->
     <script defer src="../static/js/common.js"></script>
     <title>IntroDOG</title>
   </head>
   <body>
-    <div class="container">
-      <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom header"
-      >
-        <a
-          href="/"
-          class="d-flex align-items-center mb-md-0 text-dark text-decoration-none header-logo"
-        >
-          IntroDOG
-          <img src="../static/img/favicon//android-icon-192x192.png" alt="" />
-        </a>
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li class="community__wrap">
-            {% if user_id == null %}
-            <div class="invite__box">
-              <div>우리 함께 소통해요<br />🙋‍♀️🙋</div>
-            </div>
-            {% endif %}
-            <a
-              onclick="window.location.href ='/board/select'"
-              class="nav-link px-2 link-dark layout__nav"
-              >COMMUNITY</a
-            >
-          </li>
-        </ul>
-
-        <div class="text-end">
-          {% if user_id %}
-          <p>안녕하세요 {{ nickname }}님 반갑습니다 😀</p>
-          <button class="button is-danger btn-logout" onclick="logout()">
-            로그아웃하기
-          </button>
-          {% else %}
-          <button
-            type="button"
-            class="btn btn-outline-secondary me-2"
-            onclick="goLogin()"
+    <div id="body-wrapper">
+      <div id="body-content">
+        <div class="container">
+          <header
+            class="d-flex flex-wrap align-items-center justify-content-center py-3 mb-4 border-bottom header"
           >
-            Login
-          </button>
-          <button type="button" class="btn btn-secondary" onclick="goJoin()">
-            Sign-up
-          </button>
-          {% endif %}
+            <a
+              href="/"
+              class="d-flex align-items-center mb-md-0 text-dark text-decoration-none header-logo"
+            >
+              WELCOME TO IntroDOG
+              <img
+                src="../static/img/favicon//android-icon-192x192.png"
+                alt=""
+              />
+            </a>
+          </header>
         </div>
-      </header>
-    </div>
-    <div class="contents">{% block content %}{% endblock %}</div>
+        <div class="contents">{% block content %}{% endblock %}</div>
 
-    <!-- topBtn -->
-    <button class="top__btn blind">TOP</button>
-    <!-- // topBtn -->
+        <!-- topBtn -->
+        <button class="top__btn blind">TOP</button>
+        <!-- // topBtn -->
 
-    <!-- footer -->
-    <div class="footer__wrap footerFont">
-      <footer class="py-4">
-        <p class="text-center">© 2022 TEAM, MYDOG</p>
-      </footer>
+        <!-- footer -->
+        <div class="footer__wrap footerFont">
+          <footer class="py-4">
+            <p class="text-center">© 2022 TEAM, MYDOG</p>
+          </footer>
+        </div>
+        <!-- //footer -->
+      </div>
     </div>
-    <!-- //footer -->
   </body>
 </html>
