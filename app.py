@@ -8,11 +8,10 @@ import json
 mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
 client = MongoClient(mongo_connect, tlsCAFile=certifi.where())
 db = client.dbIntroDog
-# client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# db = client.dblewigolski
+
 
 app = Flask(__name__)
-# app.register_blueprint(board)
+
 
 SECRET_KEY = 'SPARTA'
 
@@ -136,11 +135,6 @@ def bucket_get():
 
 # [회원가입 API]
 
-# import datetime
-# datetime
-#
-# datetime.datetime(2001,5,1)
-# datetime.datetime(2001, 5, 1, 0, 0)
 
 @app.route('/api/join', methods=['POST'])
 def api_join():
@@ -214,8 +208,9 @@ def api_login():
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
-
-        return jsonify({'result': 'success', 'token': token})
+        user_info = db.user.find_one({"id": payload['id']})
+        nickname=user_info["nickname"]
+        return jsonify({'result': 'success', 'token': token, "nickname":nickname})
     # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
@@ -509,4 +504,4 @@ def reply_delete():
 ##############################################
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
+    app.run('0.0.0.0', port=5007, debug=True)

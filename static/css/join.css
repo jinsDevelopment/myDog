@@ -1,156 +1,156 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&family=The+Nautigal&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&family=The+Nautigal&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 .hero-body {
-  text-align: center;
+    text-align: center;
 }
 
 .hero-body .title {
-  margin-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 .container {
-  border: solid 2px rgb(236, 231, 231);
-  width: 600px;
-  padding: 40px;
-  background: rgb(236, 231, 231);
-  border-radius: 10px;
+    border: solid 2px rgb(236, 231, 231);
+    width: 600px;
+    padding: 40px;
+    background: rgb(236, 231, 231);
+    border-radius: 10px;
 }
 
 .container h1 {
-  text-align: center;
+    text-align: center;
 }
 
 #userid {
-  height: 42px;
+    height: 42px;
 }
 
 #check-dup {
-  margin-top: 0px;
-  height: 42px;
-  width: 100px;
-  margin-left: -10px;
-  border-radius: 5px;
-  background: rgb(225, 234, 245);
+    margin-top: 0px;
+    height: 42px;
+    width: 100px;
+    margin-left: -10px;
+    border-radius: 5px;
+    background: rgb(225, 234, 245);
 }
 
 .fa-check {
-  display: none;
-  color: green;
+    display: none;
+    color: green;
 }
 
 /* validation for email, id, nickname, password and password-confirm */
 .register-desc {
-  display: none;
-  color: red;
-  font-size: 12px;
+    display: none;
+    color: red;
+    font-size: 12px;
 }
 
 .id-text-msg {
-  margin-top: -10px;
-  margin-bottom: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
 
 .container .title {
-  margin-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 .input {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .button {
-  width: 100%;
+    width: 100%;
 }
 
 .dog-select {
-  width: 500px;
+    width: 500px;
 }
 
 button {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .dog-text-msg {
-  display: none;
-  color: red;
-  font-size: 12px;
+    display: none;
+    color: red;
+    font-size: 12px;
 }
 
 /* Profile Image styling */
 
 .profile-label {
-  margin-right: 20px;
+    margin-right: 20px;
 }
 
 /* multicheckbox dropdown */
 .task {
-  outline: none;
-  border: none;
+    outline: none;
+    border: none;
 }
 .multi-selector {
-  width: 100%;
-  max-height: 200px;
-  overflow: auto;
+    width: 100%;
+    max-height: 200px;
+    overflow: auto;
 }
 .select-field {
-  border: 1px solid rgb(187, 187, 187);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    border: 1px solid rgb(187, 187, 187);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 .select-field,
 .task,
 .list {
-  width: 100%;
-  background-color: white;
-  padding: 0.3rem;
+    width: 100%;
+    background-color: white;
+    padding: 0.3rem;
 }
 .list {
-  box-shadow: 0 30px 60px rgb(0, 0, 0, 0.2);
-  display: none;
+    box-shadow: 0 30px 60px rgb(0, 0, 0, 0.2);
+    display: none;
 }
 
 .down-arrow1 {
-  font-size: 1.2rem;
-  margin-right: 8px;
-  cursor: pointer;
+    font-size: 1.2rem;
+    margin-right: 8px;
+    cursor: pointer;
 }
 
 .down-arrow {
-  font-size: 25px;
-  color: blueviolet;
-  margin-left: 250px;
-  cursor: pointer;
-  transition: 0.2s linear;
+    font-size: 25px;
+    color: blueviolet;
+    margin-left: 250px;
+    cursor: pointer;
+    transition: 0.2s linear;
 }
 
 .task {
-  display: block;
-  padding-left: 0;
+    display: block;
+    padding-left: 0;
 }
 .task span {
-  float: right;
-  font-size: 0.6rem;
-  padding-top: 6px;
+    float: right;
+    font-size: 0.6rem;
+    padding-top: 6px;
 }
 .task:hover {
-  background-color: aliceblue;
+    background-color: aliceblue;
 }
 .show {
-  display: block;
+    display: block;
 }
 .rotate180 {
-  transform: rotate(-60deg);
-  color: rgb(133, 204, 28);
+    transform: rotate(-60deg);
+    color: rgb(133, 204, 28);
 }
 
 .show-list {
-  text-align: center;
+    text-align: center;
 }
