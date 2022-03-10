@@ -1,62 +1,56 @@
 {% extends 'layout_sub.html' %} {% block content %}
-<script>
-    $(document).ready(function () {
-        if ("{{ msg }}" != "") {
-            alert("{{ msg }}");
-        }
-    });
-</script>
+
 <div class="section has-text-centered">
-    <div class="container container_body">
-        <h1 class="title">Log-in to IntroDOG</h1>
-        <div class="field is-horizontal">
-            <div class="field-body">
-                <div class="field">
-                    <p class="control has-icons-left has-icons-right">
-                        <input
-                            type="text"
-                            class="input"
-                            id="userid"
-                            aria-describedby="emailHelp"
-                            placeholder="ID"
-                        />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                    </p>
-                </div>
-            </div>
+  <div class="container container_body">
+    <h1 class="title">Log-in to IntroDOG</h1>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <p class="control has-icons-left has-icons-right">
+            <input
+              type="text"
+              class="input"
+              id="userid"
+              aria-describedby="emailHelp"
+              placeholder="ID"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </p>
         </div>
-        <p class="id-text-msg">아이디를 입력해주세요!</p>
-        <div class="field is-horizontal">
-            <div class="field-body">
-                <div class="field">
-                    <p class="control has-icons-left has-icons-right">
-                        <input
-                            type="password"
-                            class="input"
-                            id="userpw"
-                            placeholder="Password"
-                        />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <p class="password-text-msg">비밀번호를 입력해주세요!</p>
-        <section class="button-section">
-            <button onclick="login()" type="button" class="btn btn-dark">
-                Log in
-            </button>
-            <div class="line-through"></div>
-            <p>아직 회원이 아니라면</p>
-            <button onclick="join()" type="button" class="btn btn-light">
-                Sign Up
-            </button>
-        </section>
+      </div>
     </div>
+    <p class="id-text-msg">아이디를 입력해주세요!</p>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <p class="control has-icons-left has-icons-right">
+            <input
+              type="password"
+              class="input"
+              id="userpw"
+              placeholder="Password"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <p class="password-text-msg">비밀번호를 입력해주세요!</p>
+    <section class="button-section">
+      <button onclick="login()" type="button" class="btn btn-dark">
+        Log in
+      </button>
+      <div class="line-through"></div>
+      <p>아직 회원이 아니라면</p>
+      <button onclick="join()" type="button" class="btn btn-light">
+        Sign Up
+      </button>
+    </section>
+  </div>
 </div>
 <script src="../static/js/login.js"></script>
 {% endblock %}
