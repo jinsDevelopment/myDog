@@ -17,13 +17,22 @@ button {
   font-size: 0;
 }
 body,
-html {
+html, #body-wrapper {
   height: 100%;
+}
+#body-content {
+  height: 100vh;
 }
 /************ 
  * header
  *************/
-
+.header-container {
+  z-index: 1;
+  position:absolute;
+  top:0;
+  left: 0;
+  right: 0;
+}
 .header-logo {
   font-size: 40px;
   font-family: 'Righteous', cursive;
@@ -94,6 +103,20 @@ html {
   100% {
     left: -160px;
   }
+}
+/************ 
+ * Contents
+ *************/
+.contents {
+  position:absolute;
+  top:0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
 }
 /************ 
  * footer

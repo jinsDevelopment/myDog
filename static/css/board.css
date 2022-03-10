@@ -30,6 +30,15 @@
 .board-album-wrap {
   margin-bottom: 40px;
 }
+.card-info > .card-text:first-of-type {
+  margin-bottom: 15px;
+}
+.card-info > .card-text:last-child {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+}
+
 /* *************
 * board_write
 *****************/
