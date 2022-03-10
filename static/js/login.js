@@ -25,8 +25,16 @@ function login() {
     if (idInput == "") {
         $(".id-text-msg").show();
     }
-    if (idInput == "") {
+    if (psInput == "") {
         $(".password-text-msg").show();
+    }
+    if (idInput != "" && psInput == "") {
+        $(".password-text-msg").show();
+        $(".id-text-msg").hide();
+    }
+    if (idInput == "" && psInput != "") {
+        $(".id-text-msg").show();
+        $(".password-text-msg").hide();
     }
 }
 
