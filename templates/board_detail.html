@@ -50,7 +50,7 @@
   function reply_save() {
     let contents = $('#reply-contents').val();
     let board_id = $('#boardid').val();
-    let user_id = '{{user_id}}'; //임시
+    let user_id = '{{user_id}}';
 
     if (contents == '') {
       alert('댓글을 입력하세요.');
@@ -119,8 +119,8 @@
               rows="10"
               readonly
             >
-{{ board['contents'] }}</textarea
-            >
+            {{ board['contents'] }}
+            </textarea>
           </div>
           {% if user_id == board['userId'] %}
           <div class="form-group btn-detail-form">
