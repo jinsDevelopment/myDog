@@ -215,7 +215,10 @@ def board_write():
         # Token 인증시 - render_template('board_write.html'),
         user_id = auth_token('board_write.html').get_json()['userId']
         nickname = auth_token('board_list.html').get_json()['nickname']
-        return render_template('board_write.html', user_id = user_id, nickname = nickname)
+        token_receive = request.cookies.get('mytoken')
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.user.find_one({"id": payload['id']})
+        return render_template('board_write.html', user_id = user_id, nickname = nickname, profileImg=user_info["profileImg"])
 
 
 # 게시글 목록
@@ -231,6 +234,9 @@ def board_list():
         user_id = auth_token('board_list.html').get_json()['userId']
         nickname = auth_token('board_list.html').get_json()['nickname']
         boardList = list(db.board.find({}, {'_id': False}))
+        token_receive = request.cookies.get('mytoken')
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.user.find_one({"id": payload['id']})
 
         for i in range(0, len(boardList), 1):
             if boardList[i]['imgUrl'] == '':
@@ -240,7 +246,7 @@ def board_list():
             if len(boardList[i]['contents']) >= 20:
                 boardList[i]['contents'] = boardList[i]['contents'][0:36]+"..."
 
-        return render_template('board_list.html',result=boardList, user_id = user_id, nickname = nickname)
+        return render_template('board_list.html',result=boardList, user_id = user_id, nickname = nickname, profileImg=user_info["profileImg"] )
 
 
 # 게시글 저장
@@ -394,11 +400,14 @@ def board_detail():
         user_id = auth_token('board_detail.html').get_json()['userId']
         nickname = auth_token('board_detail.html').get_json()['nickname']
         board = db.board.find_one({'id': int(request.args.get('id'))}, {'_id': False})
+        token_receive = request.cookies.get('mytoken')
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.user.find_one({"id": payload['id']})
         reply_list = list(db.reply.find({'boardId': int(request.args.get('id'))}, {'_id': False}))
         if board['imgUrl'] == '':
             board['imgUrl'] = 'empty.jpg'
 
-        return render_template('board_detail.html', board=board, reply=reply_list, user_id=user_id, nickname = nickname)
+        return render_template('board_detail.html', board=board, reply=reply_list, user_id=user_id, nickname = nickname, profileImg=user_info["profileImg"])
 
 
 # 게시글 삭제
