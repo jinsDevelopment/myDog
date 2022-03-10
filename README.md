@@ -1,6 +1,139 @@
-# IntroDog
+## 🧚‍♀️ 프로젝트 소개 🧚‍
+![](https://media.vlpt.us/images/leejuhwan/post/c9456b3c-36fe-4dba-ad95-9f39a4929aae/IntroDOG%20-%20Chrome%2022-03-10%20(%EB%AA%A9)%20%EC%98%A4%ED%9B%84%206_23_34.png)
 
-반려견 정보 및 나의 반려견 소개
+
+### 프로젝트명: IntroDog
+
+###### [1 WEEK-toyproject]
+
+✅ "IntroDog" 은 애견인들의 의견을 교류할 수 있는 사이트입니다.<br/>
+✅ 반려견을 키우면서 생기는 질문, 일상 등 사소한 것까지 다른 이들과 함께 교류할 수 있습니다!
+<br/>
+
+## 📅 제작 기간 & MYDOG팀원 소개 👨‍
+
+#### ( 제작 기간: 📆 2022.03.07~ 2022.03.10 )
+
+<table>
+    <tr>
+        <td align="center">
+        <a href="https://velog.io/@leejuhwan"><img src="https://img.shields.io/badge/이주환-1C84FF?style=뱃지모양&logo=로고&logoColor=black"/></a> 
+        </td>
+        <td align="center">
+        <a href="#"><img src="https://img.shields.io/badge/이진서-8C58E7?style=뱃지모양&logo=로고&logoColor=white"/></a>
+        </td>
+        <td align="center">
+        <a href="#"><img src="https://img.shields.io/badge/김재혁-7EA973?style=뱃지모양&logo=로고&logoColor=black"/></a> 
+        </td>
+    </tr>
+    <tr>
+        <th width="33%" align="center">FRONT-END
+        </th>
+        <th width="33%" align="center">BACK-END
+        </th>
+        <th width="33%" align="center">FRONT-END
+        </th>
+    </tr>
+    <tr>
+        <td align="center">레이아웃 구성 + 메인 페이지 + 검색 기능 구현<br/>전반적인 프론트엔드 작업
+        </td>
+        <td align="center">COMMUNITY 페이지 + 글 작성/삭제 + 댓글 작성/삭제 기능 구현<br/>전반적인 백엔드 작업
+        </td>
+      <td align="center">로그인 + 회원가입 기능 구현<br/>전반적인 <span style="font-weight:bold">프론트엔드</span> 작업
+        </td>
+    </tr>
+</table>
+
+
+## 📷 시연 영상 📷
+
+[![시연 영상](https://images.velog.io/images/leejuhwan/post/b7f4c348-5127-432e-8446-d8c1f9a62e9e/asdfasdf.png)](https://www.youtube.com/watch?v=e1SIkfiCbP4)
+
+## 🗒 초안 🗒
+#### ✔️ 메인 페이지<br/>
+<img src="https://media.vlpt.us/images/leejuhwan/post/e68dd22d-9306-40f4-b9f6-2199ad6fe24f/Untitled%20-%20Figma%2022-03-10%20(%EB%AA%A9)%20%EC%98%A4%ED%9B%84%205_51_07.png"  width="500"/>
+
+#### ✔️ 커뮤니티 페이지<br/>
+<img src="https://media.vlpt.us/images/leejuhwan/post/dbde8244-aab8-416e-a65d-0431c121f5c0/Untitled%20-%20Figma%2022-03-10%20(%EB%AA%A9)%20%EC%98%A4%ED%9B%84%205_51_09.png"  width="500"/>
+
+#### ✔️ 로그인 / 회원가입 페이지<br/>
+<img src="https://media.vlpt.us/images/leejuhwan/post/c1d39195-c932-4fee-af54-452140ec9bb7/Untitled%20-%20Figma%2022-03-10%20(%EB%AA%A9)%20%EC%98%A4%ED%9B%84%205_51_14.png"  width="500"/>
+
+## 🛠 사용한 기술 🛠
+<h4>- 언어</h4>
+<p float="left">
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+<img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS&logoColor=white">
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white">
+<img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
+</p>
+
+<h4>-프레임워크 / 플랫폼 / 라이브러리</h4>
+<p float="left">
+<img src="https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white">
+<img src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white">
+<img src="https://img.shields.io/badge/Bulma-8c00ff?style=for-the-badge&logoColor=white">
+<img src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens">
+<img src="https://img.shields.io/badge/Jinja-7952B3?style=for-the-badge&logo=Jinja&logoColor=white">
+<img src="https://img.shields.io/badge/Gsap-0000ff?style=for-the-badge&logo=Gsap&logoColor=white">
+<img src="https://img.shields.io/badge/Flask-00ffff?style=for-the-badge&logo=Flask&logoColor=black">
+
+</p>
+
+<h4>-에디터</h4>
+<img src="https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=brightgreen">
+<img src="https://img.shields.io/badge/VisualStudio-143?style=for-the-badge&logo=VisualStudio&logoColor=blue&color=blue&labelColor=c4c4c4">
+
+<h4>-협업툴</h4>
+<p float="left">
+<img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/Notion-ff00ff?style=for-the-badge&logo=Notion&logoColor=white">
+  <img src="https://img.shields.io/badge/Discord-5765F2?style=for-the-badge&logo=Discord&logoColor=white">
+</p>
+<h4>-데이터베이스</h4>
+<img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white">
+
+<h4>-호스팅<h4>
+<img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">
+
+  
+## 🗂 디렉터리 구조 🗂
+<pre>
+<code>
+/static
+  └──/css
+     ├── /board.css
+     ├── /join.css
+     ├── /layout.css
+     ├── /layout_sub.css
+     ├── /login.css
+     └── /main.css
+  └──/images (서버에 저장되는 사진들 입니다)
+  └──/img
+     ├── /favicon
+     └── banner-dog.png
+  └──/js
+     ├── /common.js
+     ├── /join.js
+     ├── /login.js
+     ├── /main.js
+     └── /search.js
+/templates
+  └──/html
+     ├── /board_detail.html
+     ├── /board_list.html
+     ├── /board_update.html
+     ├── /board_write.html
+     ├── /index.html
+     ├── /join.html
+     ├── /layout.html
+     ├── /layout_sub.html
+     └── /login.html
+├── /README.md
+├── /app.py
+</code>
+</pre>
 
 ## MONGO DB 설계
 
@@ -84,3 +217,9 @@
   - email(이메일)
   - dogId(강아지코드)
   - profileUrl(프로필사진)
+  
+  
+## 📝 후기 📝
+<code>이주화</code>
+<code>이진서</code>
+<code>김재혁</code>
