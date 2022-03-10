@@ -1,0 +1,76 @@
+{% extends 'layout.html' %} {% block content %}
+    <script>
+
+
+    </script>
+
+    <body>
+{#    <div class="card-group">#}
+{#        {% for res in result %}#}
+{#            <div class="card" style="width: 18rem;" onclick="window.location.href='/board/detail?id={{ res['id'] }}'">#}
+{#                <img class="card-img-top" src="../static/images/{{ res['imgUrl'] }}" alt="Card image cap">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">{{ res['title'] }}</h5>#}
+{#                    <p class="card-text">{{ res['contents'] }}</p>#}
+{#                    <p class="card-text"><small class="text-muted">{{ res['createTime'] }}</small></p>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading -->
+        <h1 class="my-4">게시판
+            {#    <small>Secondary Text</small>#}
+        </h1>
+
+        <div class="row">
+            {% for res in result %}
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    <a href='/board/detail?id={{ res['id'] }}'><img class="card-img-top"
+                                                                     src="../static/images/{{ res['imgUrl'] }}" alt="" height="400" width="700"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href='/board/detail?id={{ res['id'] }}'>{{ res['title'] }}</a>
+                        </h4>
+                        <p class="card-text">{{ res['contents'] }}</p>
+                        <p class="card-text"></p>
+                        <p class="card-text"><small class="text-muted">{{ res['createTime'] }}</small></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- /.row -->
+
+        <!-- Pagination -->
+        {#  <ul class="pagination justify-content-center">#}
+        {#    <li class="page-item">#}
+        {#      <a class="page-link" href="#" aria-label="Previous">#}
+        {#        <span aria-hidden="true">&laquo;</span>#}
+        {#        <span class="sr-only">Previous</span>#}
+        {#      </a>#}
+        {#    </li>#}
+        {#    <li class="page-item">#}
+        {#      <a class="page-link" href="#">1</a>#}
+        {#    </li>#}
+        {#    <li class="page-item">#}
+        {#      <a class="page-link" href="#">2</a>#}
+        {#    </li>#}
+        {#    <li class="page-item">#}
+        {#      <a class="page-link" href="#">3</a>#}
+        {#    </li>#}
+        {#    <li class="page-item">#}
+        {#      <a class="page-link" href="#" aria-label="Next">#}
+        {#        <span aria-hidden="true">&raquo;</span>#}
+        {#        <span class="sr-only">Next</span>#}
+        {#      </a>#}
+        {#    </li>#}
+        {#  </ul>#}
+
+    </div>
+    <!-- /.container -->
+    </body>
+{% endblock %}
