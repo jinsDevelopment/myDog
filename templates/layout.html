@@ -132,7 +132,7 @@
         </a>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li class="community__wrap">
-            {% if nickname == null %}
+            {% if user_id == null %}
             <div class="invite__box">
               <div>우리 함께 소통해요<br />🙋‍♀️🙋</div>
             </div>
@@ -146,7 +146,7 @@
         </ul>
 
         <div class="text-end">
-          {% if nickname %}
+          {% if user_id %}
           <p>안녕하세요 {{ nickname }}님 반갑습니다 😀</p>
           <button class="button is-danger btn-logout" onclick="logout()">
             로그아웃하기

@@ -2,6 +2,7 @@
 .board_write_wrap,
 .detail-wrap {
   padding: 0 20px !important;
+  margin-bottom: 20px;
 }
 /* *************
 * board
@@ -37,9 +38,17 @@
   padding: 10px 0;
   text-align: right;
 }
+textarea#contents {
+  resize: none;
+}
 /* *************
 * borad_detail
 *****************/
+.announce {
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  color: #333;
+}
 .btn-detail-form {
   text-align: right;
   padding-top: 10px;
@@ -57,11 +66,12 @@
   box-shadow: none;
 }
 .detail-title {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
   border: 0px;
 }
-.detail-body {
+.detail-body,
+.comment-body {
   resize: none;
 }
 /* *************
@@ -78,7 +88,6 @@
 .container {
   padding-left: 50px;
 }
-
-.wrap {
-  min-height: 100vh;
+.form-group {
+  margin-top: 10px;
 }

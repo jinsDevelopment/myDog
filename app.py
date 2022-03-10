@@ -32,7 +32,7 @@ def auth_token(page):
             try:
                 payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
                 user_info = db.user.find_one({"id": payload['id']})
-                return render_template(f'{page}', userId=user_info["id"], nickname=user_info["nickname"])
+                return render_template(f'{page}', user_Id=user_info["id"], nickname=user_info["nickname"])
             except jwt.ExpiredSignatureError:
                 return render_template(f'{page}')
             except jwt.exceptions.DecodeError:
@@ -228,11 +228,22 @@ def board_write():
 # 게시글 목록
 @app.route('/board/select', methods=["GET"])
 def board_list():
-    boardList = list(db.board.find({}, {'_id': False}))
-    for i in range(0, len(boardList), 1):
-        if boardList[i]['imgUrl'] == '':
-            boardList[i]['imgUrl'] = 'empty.jpg'
-    return render_template('board_list.html', result=boardList)
+
+    # Token 미인증시 - 상황에 맞는 errorCode 출력
+    if auth_token('board_list.html').get_json() is None:
+        return auth_token('board_list.html')
+
+    else:
+        # Token 인증시 - render_template('board_list.html'),
+        user_id = auth_token('board_list.html').get_json()['userId']
+
+        boardList = list(db.board.find({}, {'_id': False}))
+
+        for i in range(0, len(boardList), 1):
+            if boardList[i]['imgUrl'] == '':
+                boardList[i]['imgUrl'] = 'empty.jpg'
+
+        return render_template('board_list.html',result=boardList, user_id = user_id)
 
 
 # 게시글 저장

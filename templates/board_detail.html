@@ -94,12 +94,17 @@
   }
 </script>
 <body>
-  <div class="wrap">
+  <div class="detail-wrap">
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <div class="posting-box">
           <input hidden id="boardid" value='{{ board['id'] }}'>
           <div class="text-center">
+            <div class="form-group">
+              <label for="exampleFormControlInput1" class="blind">제목</label>
+              <input type="text" class="form-control detail-title" id="title"
+              placeholder="제목" value='{{ board['title'] }}' readonly>
+            </div>
             <img
               src="../static/images/{{ board['imgUrl'] }}"
               class="rounded"
@@ -107,18 +112,18 @@
             />
           </div>
           <div class="form-group">
-            <label for="exampleFormControlInput1">제목</label>
-            <input type="text" class="form-control" id="title"
-            placeholder="제목" value='{{ board['title'] }}' readonly>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1">내용</label>
-            <textarea class="form-control" id="contents" rows="3" readonly>
+            <label for="exampleFormControlTextarea1" class="blind">내용</label>
+            <textarea
+              class="form-control detail-body"
+              id="contents"
+              rows="10"
+              readonly
+            >
 {{ board['contents'] }}</textarea
             >
           </div>
           {% if user_id == board['userId'] %}
-          <div class="form-group">
+          <div class="form-group btn-detail-form">
             <button
               class="btn btn-primary"
               onclick="window.location.href='/board/modify?id={{ board['id'] }}'"
@@ -134,22 +139,25 @@
       </div>
     </div>
     <div class="container">
+      <div class="announce">여러분들의 소중한 댓글을 남겨주세요 🥰</div>
       <div class="posting-box">
         <div class="form-group">
-          <label for="exampleFormControlTextarea1">댓글</label>
+          <label for="exampleFormControlTextarea1" class="blind">댓글</label>
           <textarea
-            class="form-control"
+            class="form-control comment-body"
             id="reply-contents"
             rows="3"
           ></textarea>
         </div>
-        <button
-          onclick="reply_save()"
-          type="button"
-          class="btn btn-outline-primary"
-        >
-          댓글 달기
-        </button>
+        <div class="btn-detail-form">
+          <button
+            onclick="reply_save()"
+            type="button"
+            class="btn btn-outline-primary"
+          >
+            댓글 달기
+          </button>
+        </div>
       </div>
       {% if reply %}
       <div class="posting-box">
