@@ -46,41 +46,27 @@
 
 | 기능                 | Method | URL                   | Request                                                                                    | Response                                                                                                                            |
 | -------------------- | ------ | --------------------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
-| 메인화면 페이지 로드 | GET    | /                     | {'keyWord':keyWord}                                                                        | render_template('index.html',keyWord=keyWord)                                                                                       |
-| 로그인 페이지 로드   | GET    | /login                | msg                                                                                        | render_template('login.html', msg=msg)                                                                                              |
+| 메인화면 페이지 로드 | GET    | /                     |                                                                         | render_template('index.html')                                                                                       |
+| 로그인 페이지 로드   | GET    | /login                | msg                                                                                        | render_template('login.html', msg=errorMsg)                                                                                              |
 | 회원가입 페이지 로드 | GET    | /join                 |                                                                                            | render_template('join.html')                                                                                                        |
 | 글쓰기 페이지 로드   | GET    | /board/write          |                                                                                            | Token 인증시 - render_template('board_write.html'), Token 미인증시 - {msg="로그인 정보가 존재하지 않습니다."}                       |
-| ID 중복검사          | POST   | /api/user/id/check    | {'id': user_id}                                                                            | 중복 아닐시 - {'msg': "사용 가능한 아이디 입니다."} 중복 시 - {'msg': "이미 존재하는 아이디 입니다."}                               |
-| 회원가입             | POST   | /api/user/join        | {'id': user_id, 'pw': password}                                                            | {'msg': '회원가입이 완료되었습니다.'}                                                                                               |
-| 로그인               | POST   | /api/user/login       | {'id': user_id, 'pw': password}                                                            | 로그인 성공 - {'result': 'success', 'token': token} 로그인 실패 - {'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'} |
-| 게시글 조회          | GET    | /board/select         |                                                                                            | Token 인증시 - render_template('board_list.html'), Token 미인증시 - {msg="로그인 정보가 존재하지 않습니다."}                        |
-| 게시글 상세 조회     | GET    | /board/select?id={id} |                                                                                            | Token 인증시 - render_template('board_detail.html'), Token 미인증시 - {msg="로그인 정보가 존재하지 않습니다."}                      |
-| 게시글 수정          | PUT    | /api/board/update     | {'id':board_id ,'userId': user_id, 'contents': contents, 'title': title, 'imgUrl': imgUrl} | {msg="수정되었습니다."}                                                                                                             |
-| 게시글 저장          | POST   | /api/board/create     | {'userId': user_id, 'contents': contents, 'title': title, 'imgUrl': imgUrl}                | {msg="저장되었습니다."}                                                                                                             |
-| 게시글 삭제          | DELETE | /api/board/delete     | {'id':board_id}                                                                            | {msg="삭제되었습니다."}                                                                                                             |
-| 댓글 저장            | POST   | /api/reply/create     | {'boardId':board_Id ,'userId': user_id, 'contents': contents}                              | {msg="저장되었습니다."}                                                                                                             |
-| 댓글 삭제            | DELETE | /api/reply/delete     | {'boardId':board_Id}                                                                       | {msg="삭제되었습니다."}                                                                                                             |
 
-# API 구현
+| 회원가입시 선택할 강아지 목록 조회 | GET    | /dog/list                 |                                                                                            | jsonify({'msg': dog})                                                                                                       |
 
-| 기능                 | Method | URL            | Request                    | Response                                                                                                                            |
-| -------------------- | ------ | -------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| 메인화면 페이지 로드 | GET    | /              | {'keyWord':keyWord}        | render_template('index.html',keyWord=keyWord)                                                                                       |
-| 로그인 페이지 로드   | GET    | /login         | msg                        | render_template('login.html', msg=msg)                                                                                              |
-| 회원가입 페이지 로드 | GET    | /join          |                            | render_template('join.html')                                                                                                        |
-| 글쓰기 페이지 로드   | GET    | /write         |                            | Token 인증시 - render_template('board_write.html'), Token 미인증시 - {msg="로그인 정보가 존재하지 않습니다."}                       |
-| ID 중복검사          | POST   | /api/check_dup | {'id': check_id}           | 중복 아닐시 - {'msg': "사용 가능한 아이디 입니다."} 중복 시 - {'msg': "이미 존재하는 아이디 입니다."}                               |
-| 회원가입             | POST   | /api/join      | {'id': id, 'pw': password} | {'msg': '회원가입이 완료되었습니다.'}                                                                                               |
-| 로그인               | POST   | /api/login     | {'id': id, 'pw': password} | 로그인 성공 - {'result': 'success', 'token': token} 로그인 실패 - {'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'} |
-| 게시글 조회          | GET    | /boardList     |                            | Token 인증시 - render_template('board_list.html'), Token 미인증시 - {msg="로그인 정보가 존재하지 않습니다."}                        |
+| ID 중복검사          | POST   | /api/check_dup    | {'id': id}                                                                            | 중복 아닐시 - {'msg': "사용 가능한 ID 입니다"} 중복 시 - {'msg': "사용이 불가능한 ID 입니다."}                               |
+| 회원가입             | POST   | /api/join        | {'file': file, 'email': email, 'id' :id, 'nickname':nickname, 'pw':password, 'dogCode',dog_result}                                                            | 회원가입 성공시 - {'msg': '회원가입이 완료되었습니다.'}  , 실패시 - 상황에 맞는 MSG 출력                                                                                             |
+| 로그인               | POST   | /api/login       | {'id': id_give, 'pw': pw_give}                                                            | 로그인 성공 - {'result': 'success', 'token': token, "nickname":nickname } 로그인 실패 - {'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'} |
 
-## 데이터 베이스에 저장될 key 명칭
+| 메인화면 강아지 목록 및 강아지 이미지 조회 | GET    | /getDogList                 |                                                                                            | jsonify({'dogList': dog_list, 'dogimgList': dogimg_list})                                                                                                      |
 
-- USER
-  - id(아이디)
-  - password(비밀번호)
-  - password(비밀번호)
-  - nickname(닉네임)
-  - email(이메일)
-  - dogId(강아지코드)
-  - profileUrl(프로필사진)
+
+| 메인화면에서 강아지 검색어 조회          | POST    | /api/search         |         {'give_keyword': keyword}                                                                                   | jsonify({'search_dog': search_dog, 'dogimgList': dogimg_list, 'receive_keywords': receive_keywords})                        |
+| 게시글 작성          | GET    | /board/write         |                                                                                            | Token 인증시 - render_template('board_write.html', user_id = user_id, nickname = nickname, profileImg=user_info["profileImg"]), Token 인증 실패시 - make_response(redirect(url_for("login", errorCode=errorCode)))                        |
+| 게시글 조회          | GET    | /board/select         |                                                                                            | Token 인증시 - render_template('board_list.html',result=boardList, user_id = user_id, nickname = nickname, profileImg=user_info["profileImg"] ), Token 인증 실패시 - make_response(redirect(url_for("login", errorCode=errorCode)))                        |
+| 게시글 상세 조회     | GET    | /board/detail?id={id} |                                                                                            | Token 인증시 - render_template('board_detail.html', board=board, reply=reply_list, user_id=user_id, nickname = nickname, profileImg=user_info["profileImg"]), Token 인증 실패시 - make_response(redirect(url_for("login", errorCode=errorCode)))                      |
+| 게시글 수정 화면 렌더링          | GET    | /board/modify?id={id}     | {'id':board_id} | render_template('board_update.html', board = board, user_id = user_id, nickname = nickname)                                                                                                          |
+| 게시글 저장          | POST   | /board/create     | {'id':id, 'userId': user_id, 'contents': contents, 'title': title, 'imgUrl': imgUrl,'createTime': now.strftime("%Y-%m-%d %H:%M:%S"),'updateTime': now.strftime("%Y-%m-%d %H:%M:%S")}                | {msg="저장되었습니다."}                                                                                                             |
+| 게시글 수정          | PUT   | /board/update     | {'id':boardId, 'contents': contents, 'title': title, 'imgUrl': imgUrl,'updateTime': now.strftime("%Y-%m-%d %H:%M:%S")}                | {msg="수정되었습니다."}                                                                                                             |
+| 게시글 삭제          | DELETE | /board/delete     | {'id':id}                                                                            | {msg="삭제되었습니다."}                                                                                                             |
+| 댓글 저장            | POST   | /board/reply/create     | {'boardId':board_Id ,'userId': user_id, 'contents': contents}                              | {msg="저장되었습니다."}                                                                                                             |
+| 댓글 삭제            | DELETE | /board/reply/delete     | {'boardId':board_id,'seqNo' : seqNo}                                                                       | {msg="삭제되었습니다."}                                                                                                             |
