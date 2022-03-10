@@ -75,10 +75,10 @@
   }
 </script>
 <body>
-  <div class="wrap">
+  <div class="update-wrap">
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
-        <h1>글 쓰기</h1>
+        <h1 class="blind">글 쓰기</h1>
         <div class="posting-box">
           <input hidden id="boardid" value='{{ board['id'] }}'>
           <div class="custom-file">
@@ -102,11 +102,11 @@
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1" class="blind">내용</label>
-            <textarea class="form-control" id="contents" rows="3">
+            <textarea class="form-control" id="contents" rows="20">
 {{ board['contents'] }}</textarea
             >
           </div>
-          <div class="form-group">
+          <div class="form-group btn-write-form">
             <button class="btn btn-primary" onclick="board_update()">
               저장
             </button>

@@ -1,8 +1,15 @@
 .board-wrap,
 .board_write_wrap,
-.detail-wrap {
+.detail-wrap,
+.update-wrap {
+  margin: 0 auto;
   padding: 0 20px !important;
   margin-bottom: 20px;
+  /* max-width: 1300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
 }
 /* *************
 * board
@@ -90,4 +97,9 @@ textarea#contents {
 }
 .form-group {
   margin-top: 10px;
+}
+.posting-box,
+.text-center {
+  max-width: 1000px;
+  margin: 0 auto;
 }
