@@ -232,7 +232,7 @@ def reply_create():
     return jsonify({"msg": "저장되었습니다."})
 
 
-# 게시글 삭제
+# 댓글 삭제
 @board.route('/reply/delete', methods=["DELETE"])
 def reply_delete():
     db.reply.delete_one({'boardId': int(request.form['board_id']), 'seqNo': int(request.form['seqNo'])})

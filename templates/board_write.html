@@ -1,102 +1,110 @@
 {% extends 'layout.html' %} {% block content %}
-    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
-    <script>
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+<script>
+  $(document).ready(function () {
+    bsCustomFileInput.init();
+  });
 
-        $(document).ready(function () {
-            bsCustomFileInput.init();
-        });
+  function board_save() {
+    let title = $('#title').val();
+    let contents = $('#contents').val();
 
+    if (title == '') {
+      alert('제목을 입력하세요.');
+      return;
+    }
+    if (contents == '') {
+      alert('내용을 입력하세요');
+      return;
+    }
 
-        function board_save() {
+    let file = $('#file')[0].files[0];
+    let form_data = new FormData();
 
-            let title = $('#title').val()
-            let contents = $("#contents").val()
+    form_data.append('file', file);
+    form_data.append('title', title);
+    form_data.append('contents', contents);
+    form_data.append('userid', 'jinseo'); //임시
 
-            if (title == '') {
-                alert("제목을 입력하세요.");
-                return;
-            }
-            if (contents == '') {
-                alert("내용을 입력하세요");
-                return;
-            }
+    $.ajax({
+      type: 'POST',
+      url: '/board/create',
+      data: form_data,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        alert(response['msg']);
+        window.location.href = '/board/select';
+      },
+    });
+  }
 
-            let file = $('#file')[0].files[0]
-            let form_data = new FormData()
+  function fileCheck() {
+    if ($('#file')[0].files.length == 0) {
+      return;
+    }
 
-            form_data.append("file", file)
-            form_data.append("title", title)
-            form_data.append("contents", contents)
-            form_data.append("userid", "jinseo")   //임시
+    let filename = $('#file')[0].files[0].name;
+    let pathpoint = filename.lastIndexOf('.');
+    let filepoint = filename.substring(pathpoint + 1, filename.length);
+    let filetype = filepoint.toLowerCase();
 
-            $.ajax({
-                type: "POST",
-                url: "/board/create",
-                data: form_data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.href = "/board/select";
-                }
-            });
+    if (
+      filetype == 'jpg' ||
+      filetype == 'gif' ||
+      filetype == 'png' ||
+      filetype == 'jpeg' ||
+      filetype == 'bmp'
+    ) {
+    } else {
+      alert('이미지 파일만 선택할 수 있습니다.');
+      $('#file').val('');
+      return;
+    }
+  }
 
-        }
-
-        function fileCheck() {
-
-            if ($('#file')[0].files.length == 0) {
-                return;
-            }
-
-            let filename = $('#file')[0].files[0].name;
-            let pathpoint = filename.lastIndexOf('.');
-            let filepoint = filename.substring(pathpoint + 1, filename.length);
-            let filetype = filepoint.toLowerCase();
-
-            if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png' || filetype == 'jpeg' || filetype == 'bmp') {
-
-            } else {
-                alert('이미지 파일만 선택할 수 있습니다.');
-                $("#file").val('');
-                return;
-            }
-
-
-        }
-
-        function goBack() {
-            window.history.back();
-        }
-
-    </script>
-    <body>
-    <div class="wrap">
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1>글 쓰기</h1>
-                <div class="posting-box">
-                    <div class="custom-file">
-                        <input type="file" id="file" class="custom-file-input" onchange="fileCheck()"
-                               accept="image/gif,image/jpeg,image/png">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">제목</label>
-                        <input type="text" class="form-control" id="title" placeholder="제목">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">내용</label>
-                        <textarea class="form-control" id="contents" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" onclick="board_save()">저장</button>
-                        <button class="btn btn-primary" onclick="goBack()">취소</button>
-                    </div>
-                </div>
-            </div>
+  function goBack() {
+    window.history.back();
+  }
+</script>
+<body>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container board_write_wrap">
+      <header class="board_write_header">
+        사소한 것도 좋아요. 오늘은 무슨 일이 있으셨나요? 😁
+      </header>
+      <div class="posting-box">
+        <div class="write-form">
+          <div class="custom-file">
+            <input
+              type="file"
+              id="file"
+              class="custom-file-input"
+              onchange="fileCheck()"
+              accept="image/gif,image/jpeg,image/png"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">제목</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="제목"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">내용</label>
+            <textarea class="form-control" id="contents" rows="10"></textarea>
+          </div>
+          <div class="form-group btn-write-form">
+            <button class="btn btn-primary" onclick="board_save()">저장</button>
+            <button class="btn btn-primary" onclick="goBack()">취소</button>
+          </div>
         </div>
-
+      </div>
     </div>
-    </body>
+  </div>
+</body>
 {% endblock %}

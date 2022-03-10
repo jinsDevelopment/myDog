@@ -1,177 +1,193 @@
 {% extends 'layout.html' %} {% block content %}
-    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
-    <script>
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+<script>
+  function board_update() {
+    let title = $('#title').val();
+    let contents = $('#contents').val();
 
-        function board_update() {
+    let file = $('#file')[0].files[0];
+    let form_data = new FormData();
 
-            let title = $('#title').val()
-            let contents = $("#contents").val()
+    form_data.append('file', file);
+    form_data.append('title', title);
+    form_data.append('contents', contents);
+    form_data.append('id', 'jinseo'); //임시
 
-            let file = $('#file')[0].files[0]
-            let form_data = new FormData()
+    $.ajax({
+      type: 'POST',
+      url: '/board/modify',
+      data: form_data,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        alert(response['msg']);
+        window.location.reload();
+      },
+    });
+  }
 
-            form_data.append("file", file)
-            form_data.append("title", title)
-            form_data.append("contents", contents)
-            form_data.append("id", "jinseo")   //임시
+  function board_remove() {
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      let id = $('#boardid').val();
 
-            $.ajax({
-                type: "POST",
-                url: "/board/modify",
-                data: form_data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.reload()
-                }
-            });
+      $.ajax({
+        type: 'DELETE',
+        url: '/board/delete',
+        data: {
+          id: id,
+        },
+        success: function (response) {
+          alert(response['msg']);
+          window.location.href = '/board/select';
+        },
+      });
+    } else {
+      return;
+    }
+  }
 
-        }
+  function reply_save() {
+    let contents = $('#reply-contents').val();
+    let board_id = $('#boardid').val();
+    let user_id = 'jinseo'; //임시
 
-        function board_remove() {
+    if (contents == '') {
+      alert('댓글을 입력하세요.');
+      return;
+    }
 
-            if (confirm("정말로 삭제하시겠습니까?")) {
+    $.ajax({
+      type: 'POST',
+      url: '/board/reply/create',
+      data: {
+        board_id: board_id,
+        contents: contents,
+        user_id: user_id,
+      },
+      success: function (response) {
+        alert(response['msg']);
+        window.location.reload();
+      },
+    });
+  }
 
-                let id = $('#boardid').val();
+  function reply_remove(seqNo) {
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      let id = $('#boardid').val();
 
-                $.ajax({
-                    type: "DELETE",
-                    url: "/board/delete",
-                    data: {
-                        id: id
-                    },
-                    success: function (response) {
-                        alert(response["msg"])
-                        window.location.href = '/board/select';
-                    }
-                });
-
-            } else {
-                return;
-            }
-        }
-
-        function reply_save() {
-
-            let contents = $("#reply-contents").val()
-            let board_id = $("#boardid").val()
-            let user_id = "jinseo"  //임시
-
-            if (contents == "") {
-                alert("댓글을 입력하세요.");
-                return;
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/board/reply/create",
-                data: {
-                    board_id: board_id,
-                    contents: contents,
-                    user_id: user_id
-                },
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.reload()
-                }
-            });
-
-        }
-
-        function reply_remove(seqNo) {
-
-            if (confirm("정말로 삭제하시겠습니까?")) {
-
-                let id = $('#boardid').val();
-
-                $.ajax({
-                    type: "DELETE",
-                    url: "/board/reply/delete",
-                    data: {
-                        board_id: id,
-                        seqNo: seqNo
-
-                    },
-                    success: function (response) {
-                        alert(response["msg"])
-                        window.location.reload();
-                    }
-                });
-
-            } else {
-                return;
-            }
-
-        }
-
-    </script>
-    <body>
-    <div class="wrap">
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <div class="posting-box">
-                    <input hidden id="boardid" value='{{ board['id'] }}'>
-                    <div class="text-center">
-                        <img src="../static/images/{{ board['imgUrl'] }}" class="rounded" alt="...">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">제목</label>
-                        <input type="text" class="form-control" id="title" placeholder="제목"
-                               value='{{ board['title'] }}' readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">내용</label>
-                        <textarea class="form-control" id="contents" rows="3"
-                                  readonly>{{ board['contents'] }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary" onclick="window.location.href='/board/modify?id={{ board['id'] }}'">수정</button>
-                        <button class="btn btn-primary" onclick="board_remove()">삭제</button>
-                    </div>
-                </div>
+      $.ajax({
+        type: 'DELETE',
+        url: '/board/reply/delete',
+        data: {
+          board_id: id,
+          seqNo: seqNo,
+        },
+        success: function (response) {
+          alert(response['msg']);
+          window.location.reload();
+        },
+      });
+    } else {
+      return;
+    }
+  }
+</script>
+<body>
+  <div class="wrap detail-wrap">
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <div class="posting-box">
+          <input hidden id="boardid" value='{{ board['id'] }}'>
+          <div class="text-center">
+            <div class="form-group">
+              <label for="exampleFormControlInput1" class="blind">제목</label>
+              <input type="text" class="form-control detail-title" id="title"
+              placeholder="제목" value='{{ board['title'] }}' readonly>
             </div>
+            <img
+              src="../static/images/{{ board['imgUrl'] }}"
+              class="rounded detail-img"
+              alt="..."
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1" class="blind">내용</label>
+            <textarea
+              class="form-control detail-body"
+              id="contents"
+              rows="3"
+              readonly
+            >
+{{ board['contents'] }}</textarea
+            >
+          </div>
+          <div class="form-group btn-detail-form">
+            <button
+              class="btn btn-primary"
+              onclick="window.location.href='/board/modify?id={{ board['id'] }}'"
+            >
+              수정
+            </button>
+            <button class="btn btn-primary" onclick="board_remove()">
+              삭제
+            </button>
+          </div>
         </div>
-        <div class="container">
-            <div class="posting-box">
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">댓글</label>
-                    <textarea class="form-control" id="reply-contents" rows="3"></textarea>
-                </div>
-                <button onclick="reply_save()" type="button" class="btn btn-outline-primary">댓글 달기</button>
-            </div>
-        {% if reply %}
-            <div class="posting-box">
-                <div class="form-group">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <td>닉네임</td>
-                            <td colspan="8">내용</td>
-                            <td></td>
-                        </tr>
-
-                        </thead>
-                        <tbody>
-                        {% for rep in reply %}
-                            <tr>
-                                <th scope="row">{{ rep['userId'] }}</th>
-                                <td colspan="8">{{ rep['contents'] }}</td>
-                                <td style="text-align: right">
-                                    <button class="btn btn-primary" onclick="reply_remove({{ rep['seqNo'] }})">삭제
-                                    </button>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        {% endif %}
-        </div>
-
+      </div>
     </div>
-
-    </body>
+    <div class="container">
+      <div class="posting-box">
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">댓글</label>
+          <textarea
+            class="form-control"
+            id="reply-contents"
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="btn-detail-form">
+          <button
+            onclick="reply_save()"
+            type="button"
+            class="btn btn-outline-primary btn-comment"
+          >
+            댓글 달기
+          </button>
+        </div>
+      </div>
+      {% if reply %}
+      <div class="posting-box">
+        <div class="form-group">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td>닉네임</td>
+                <td colspan="8">내용</td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for rep in reply %}
+              <tr>
+                <th scope="row">{{ rep['userId'] }}</th>
+                <td colspan="8">{{ rep['contents'] }}</td>
+                <td style="text-align: right">
+                  <button
+                    class="btn btn-primary"
+                    onclick="reply_remove({{ rep['seqNo'] }})"
+                  >
+                    삭제
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
 {% endblock %}
