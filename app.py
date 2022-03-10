@@ -1,22 +1,27 @@
 from pymongo import MongoClient
-from flask import Flask, render_template, jsonify, request, redirect, url_for, make_response
+from flask import Flask, render_template, jsonify, request, session, redirect, url_for, make_response
 import jwt
 import datetime
 import hashlib
 import certifi
 import json
+mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
+client = MongoClient(mongo_connect,tlsCAFile=certifi.where())
+db = client.dbIntroDog
+# client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
+# db = client.dblewigolski
 
 app = Flask(__name__)
-
-mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
-client = MongoClient(mongo_connect, tlsCAFile=certifi.where())
-db = client.dbIntroDog
-
-## 블루프린트 연결
-# app.register_blueprint(dog_board)
+# app.register_blueprint(board)
 
 SECRET_KEY = 'SPARTA'
 
+
+
+
+#################################
+##  HTML을 주는 부분             ##
+#################################
 
 def auth_token(page):
     token_receive = request.cookies.get('mytoken')
@@ -57,13 +62,9 @@ def auth_token(page):
                 return make_response(redirect(url_for("login", errorCode="2")))
 
 
-#################################
-##  HTML을 주는 부분             ##
-#################################
 @app.route('/')
 def home():
     return auth_token('index.html')
-
 
 @app.route('/login')
 def login():
@@ -98,6 +99,12 @@ def bucket_get():
 
 # [회원가입 API]
 
+# import datetime
+# datetime
+#
+# datetime.datetime(2001,5,1)
+# datetime.datetime(2001, 5, 1, 0, 0)
+
 @app.route('/api/join', methods=['POST'])
 def api_join():
     email_receive = request.form['email']
@@ -105,6 +112,27 @@ def api_join():
     pw_receive = request.form['pw']
     nickname_receive = request.form['nickname']
     dogCode_receive = request.form['dogCode'].split(",")
+
+    # 현재시간 구해오기
+    now = datetime.datetime.now()
+    date_time = now.strftime("%Y-%m-%d-%H-%M-%S")
+    imgUrl = ""
+
+    if len(request.files) != 0:
+        # 새로운 이름을 만들어주기
+        filename = f'file-{date_time}'
+
+        # 확장자를 빼내기
+        file = request.files['file']
+        extension = file.filename.split(",")[-1]
+
+        # 새로운 이름으로 저장하기
+        save_to = f'static/images/{filename}.{extension}'
+        file.save(save_to)
+
+        imgUrl = f'{filename}.{extension}'
+    else:
+        imgUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
@@ -114,13 +142,15 @@ def api_join():
         "password": pw_hash,
         "nickname": nickname_receive,
         "dogId": dogCode_receive,
+        'profileImg': imgUrl,
+
     }
 
     db.user.insert_one(doc)
 
     return jsonify({'result': 'success'})
 
-
+# 회원가입 아이디 중복확인
 @app.route('/api/check_dup', methods=['POST'])
 def check_dup():
     id_receive = request.form["id"]
@@ -131,35 +161,28 @@ def check_dup():
 
 
 # [로그인 API]
+
 @app.route('/api/login', methods=['POST'])
 def api_login():
-    id_receive = request.form['id']
-    pw_receive = request.form['pw']
+    id_receive = request.form['id_give']
+    pw_receive = request.form['pw_give']
 
-    # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    # id, 암호화된pw을 가지고 해당 유저를 찾습니다.
     result = db.user.find_one({'id': id_receive, 'password': pw_hash})
 
-    # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result is not None:
-        # JWT 토큰에는, payload와 시크릿키가 필요합니다.
-        # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
-        # 아래에선 id와 exp를 담았습니다. 즉, JWT 토큰을 풀면 유저ID 값을 알 수 있습니다.
-        # exp에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
+
         payload = {
             'id': id_receive,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60)
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-        # token을 줍니다.
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
     else:
-        return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
-
+        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 #############################
 # 반려견 종류 정보 가져오기
@@ -429,10 +452,9 @@ def reply_delete():
     # Token미인증시 - {msg = "로그인 정보가 존재하지 않습니다."}
     return jsonify({"msg": "삭제되었습니다."})
 
-
-
 ##############################################
 # 실행 파일
 ##############################################
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
