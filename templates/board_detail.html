@@ -121,6 +121,7 @@
             >
             {{ board['contents'] }}
             </textarea>
+            <p style="text-align: right;">작성자 : {{ board['userId'] }}</p>
           </div>
           {% if user_id == board['userId'] %}
           <div class="form-group btn-detail-form">
