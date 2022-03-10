@@ -16,48 +16,6 @@ app = Flask(__name__)
 SECRET_KEY = 'SPARTA'
 
 
-def auth_token(page):
-    token_receive = request.cookies.get('mytoken')
-    if page == 'index.html':
-        if token_receive is None:
-            return render_template('index.html')
-        else:
-            try:
-                payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-                user_info = db.user.find_one({"id": payload['id']})
-                return render_template(f'{page}', userId=user_info["id"], nickname=user_info["nickname"])
-            except jwt.ExpiredSignatureError:
-                return render_template(f'{page}')
-            except jwt.exceptions.DecodeError:
-                return render_template(f'{page}')
-
-    else:
-        if token_receive is None:
-            return make_response(redirect(url_for("login", errorCode="0")))
-        else:
-            try:
-                payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-                user_info = db.user.find_one({"id": payload['id']})
-
-                user_data = {
-                    'userId': user_info['id'],
-                    'nickname': user_info['nickname']
-                }
-                response = app.response_class(
-                    response=json.dumps(user_data),
-                    mimetype='application/json'
-                )
-                return response
-            except jwt.ExpiredSignatureError:
-                return make_response(redirect(url_for("login", errorCode="1")))
-
-            except jwt.exceptions.DecodeError:
-                return make_response(redirect(url_for("login", errorCode="2")))
-
-
-#################################
-##  HTML을 주는 부분             ##
-#################################
 
 def auth_token(page):
     token_receive = request.cookies.get('mytoken')
@@ -97,6 +55,9 @@ def auth_token(page):
             except jwt.exceptions.DecodeError:
                 return make_response(redirect(url_for("login", errorCode="2")))
 
+#################################
+##  HTML을 주는 부분             ##
+#################################
 
 @app.route('/')
 def home():
