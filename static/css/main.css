@@ -41,7 +41,7 @@ body {
   display: inline-block;
   margin: 0;
   padding: 10px;
-  column-width: 180px;
+  column-width: 170px;
   column-gap: 15px;
 }
 .thumbnail {
