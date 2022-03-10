@@ -8,11 +8,10 @@ import json
 mongo_connect = 'mongodb+srv://test:sparta@cluster0.u9lvb.mongodb.net/Cluster0?retryWrites=true&w=majority'
 client = MongoClient(mongo_connect,tlsCAFile=certifi.where())
 db = client.dbIntroDog
-# client = MongoClient('mongodb+srv://lewigolski:Rlawogur123!@cluster0.1vcre.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# db = client.dblewigolski
+
 
 app = Flask(__name__)
-# app.register_blueprint(board)
+
 
 SECRET_KEY = 'SPARTA'
 
@@ -99,11 +98,6 @@ def bucket_get():
 
 # [회원가입 API]
 
-# import datetime
-# datetime
-#
-# datetime.datetime(2001,5,1)
-# datetime.datetime(2001, 5, 1, 0, 0)
 
 @app.route('/api/join', methods=['POST'])
 def api_join():
