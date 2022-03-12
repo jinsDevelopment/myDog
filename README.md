@@ -207,6 +207,8 @@
   
   
 ## 📝 후기 📝
-<code>이주환</code>
-<code>이진서</code>
-<code>김재혁</code>
+### __이주환__: <a href="https://velog.io/@leejuhwan/IntroDOG-%ED%95%AD%ED%95%B499-1%EC%A3%BC%EC%B0%A8-%EB%AF%B8%EB%8B%88-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8"><img src="https://img.shields.io/badge/Tech%20Blog-11B48A?style=plastic&logo=Velog&logoColor=white&link=https://velog.io/@leejuhwan/IntroDOG-%ED%95%AD%ED%95%B499-1%EC%A3%BC%EC%B0%A8-%EB%AF%B8%EB%8B%88-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8"/></a>
+    
+### __이진서__:
+    
+### __김재혁__:
