@@ -19,13 +19,13 @@
 <table>
     <tr>
         <td align="center">
-        <a href="https://velog.io/@leejuhwan"><img src="https://img.shields.io/badge/이주환-1C84FF?style=뱃지모양&logo=로고&logoColor=black"/></a> 
+        <a href="https://velog.io/@leejuhwan">이주환</a> 
         </td>
         <td align="center">
-        <a href="#"><img src="https://img.shields.io/badge/이진서-8C58E7?style=뱃지모양&logo=로고&logoColor=white"/></a>
+        <a href="#">이진서</a>
         </td>
         <td align="center">
-        <a href="#"><img src="https://img.shields.io/badge/김재혁-7EA973?style=뱃지모양&logo=로고&logoColor=black"/></a> 
+        <a href="#">김재혁</a> 
         </td>
     </tr>
     <tr>
